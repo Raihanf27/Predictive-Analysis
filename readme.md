@@ -159,6 +159,7 @@ Nilai Maksimum (max): Jumlah garasi terbanyak adalah 10.
 3. Outlier
    Pada dataset ini terdapat outlier tetapi tidak dihapus karena itu akan berpengaruh korelasi data bisa dilihat pada gambar dibawah jika outlier dihapus dan tidak dihapus:
 
+<<<<<<< HEAD
 ### Gambar data jika outlier tidak dihapus:
 
 ![outlier](https://github.com/user-attachments/assets/666c2621-4357-4026-809d-7606bc415f5b)
@@ -187,6 +188,13 @@ Bisa dilihat pada pola sebaran data grafik pairplot dibawah LT dan LB memiliki k
 
 6. Pemisahan Data
    Dataset dibagi menjadi set pelatihan dan pengujian menggunakan train_test_split dengan rasio 80:20. Ini memungkinkan evaluasi kinerja model pada data yang tidak terlihat.
+=======
+ ### Gambar data jika outlier tidak dihapus:
+![outlier](https://github.com/user-attachments/assets/666c2621-4357-4026-809d-7606bc415f5b)
+
+ ### Gambar data jika outlier dihapus:
+![nooutlier](https://github.com/user-attachments/assets/cf108e00-b1e0-4d3b-bee9-97c991e8ed87)
+>>>>>>> e6209cbf71c43b3ecc771a6ccebd4301abaac020
 
 ## Modeling
 
@@ -343,3 +351,6 @@ Penggunaan model XGBoost dan Random Forest memberikan dampak positif dengan meny
 **XGBoost** menunjukkan performa yang lebih stabil pada data pengujian dengan penurunan performa yang tidak terlalu drastis dibandingkan dengan data pelatihan, menunjukkan model yang lebih robust dan mampu melakukan generalisasi yang lebih baik pada data pengujian.
 
 Berdasarkan hasil evaluasi ini, XGBoost lebih direkomendasikan untuk digunakan dalam prediksi harga rumah pada dataset ini karena kemampuannya dalam generalisasi yang lebih baik dibandingkan dengan Random Forest. Meskipun Random Forest menunjukkan performa yang sangat baik pada data pelatihan, overfitting yang terjadi membuatnya kurang ideal untuk digunakan pada data baru yang tidak terlihat sebelumnya.
+
+
+
