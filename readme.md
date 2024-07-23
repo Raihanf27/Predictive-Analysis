@@ -1,4 +1,6 @@
 # Laporan Proyek Machine Learning - Raihan Fahlevi
+## Domain Proyek
+Industri real estate merupakan salah satu sektor ekonomi yang paling signifikan dan dinamis. Harga rumah dipengaruhi oleh berbagai faktor ekonomi, sosial, dan lingkungan. Oleh karena itu, memiliki model prediksi yang akurat untuk harga rumah adalah sangat penting bagi pembeli rumah, penjual, investor, dan perusahaan real estate.
 
 ## Business Understanding
 
