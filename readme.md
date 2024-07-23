@@ -144,7 +144,7 @@ Kuartil Ketiga (75%): 4 kamar mandi.
 
 Nilai Maksimum (max): Jumlah kamar mandi terbanyak adalah 10.
 
-`Garasi (GRS)` :
+- `Garasi (GRS)` :
 
 Rata-rata (mean): Rata-rata jumlah garasi adalah 1,92.
 
@@ -302,16 +302,23 @@ Metrik yang digunakan pada project ini adalah
 ### Model XGBoost
 
 **Evaluasi pada Data Pelatihan**:
+
 MAE: 1,469,339,139.4591584
+
 MSE: 6.934707093962935e+18
+
 R2 Score: 0.8752894282801635
 
 **Evaluasi pada Data Pengujian**:
+
 MAE: 1,775,984,023.5
+
 MSE: 8.609931393182666e+18
+
 R2 Score: 0.8155652739886136
 
 Hasil:
+
 **MAE** yang tinggi menunjukkan bahwa prediksi rata-rata model memiliki kesalahan absolut sebesar sekitar 1.47 miliar pada data pelatihan dan 1.78 miliar pada data pengujian.
 
 **MSE** yang tinggi menunjukkan adanya beberapa prediksi dengan kesalahan besar, karena MSE memperbesar pengaruh dari kesalahan besar.
@@ -321,16 +328,23 @@ Hasil:
 ### Model Random Forest
 
 **Evaluasi pada Data Pelatihan**:
+
 MAE: 676,085,395.3969383
+
 MSE: 2.437404949029554e+18
+
 R2 Score: 0.9561668343612005
 
 **Evaluasi pada Data Pengujian**:
+
 MAE: 1,766,550,038.426072
+
 MSE: 1.0078563535210017e+19
+
 R2 Score: 0.7841054685201516
 
 Hasil:
+
 **MAE** yang lebih rendah pada data pelatihan menunjukkan bahwa model ini memiliki kesalahan rata-rata yang lebih kecil, sekitar 676 juta pada data pelatihan dan 1.77 miliar pada data pengujian.
 
 **MSE** yang lebih rendah pada data pelatihan menunjukkan bahwa model ini lebih baik dalam mengurangi pengaruh dari kesalahan besar pada data pelatihan. Namun, pada data pengujian, MSE lebih tinggi daripada XGBoost.
