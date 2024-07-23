@@ -1,33 +1,45 @@
 # Laporan Proyek Machine Learning - Raihan Fahlevi
-## Domain Proyek
-Industri real estate merupakan salah satu sektor ekonomi yang paling signifikan dan dinamis. Harga rumah dipengaruhi oleh berbagai faktor ekonomi, sosial, dan lingkungan. Oleh karena itu, memiliki model prediksi yang akurat untuk harga rumah adalah sangat penting bagi pembeli rumah, penjual, investor, dan perusahaan real estate.
 
 ## Domain Proyek
-Industri real estate merupakan salah satu sektor ekonomi yang paling signifikan dan dinamis. Harga rumah dipengaruhi oleh berbagai faktor ekonomi, sosial, dan lingkungan. Oleh karena itu, memiliki model prediksi yang akurat untuk harga rumah adalah sangat penting bagi pembeli rumah, penjual, investor, dan perusahaan real estate.
+
+Industri real estate merupakan salah satu sektor ekonomi yang paling signifikan dan dinamis. Harga rumah dipengaruhi oleh berbagai faktor ekonomi, sosial, dan lingkungan. Oleh karena itu, memiliki model prediksi yang akurat untuk harga rumah adalah sangat penting bagi pembeli rumah.
+
+Pentingnya Prediksi Harga Rumah:
+
+A. Pembeli Rumah:
+Prediksi harga rumah membantu pembeli untuk menentukan apakah harga yang ditawarkan sesuai dengan nilai pasar yang sebenarnya.
+Perencanaan Keuangan: Dengan mengetahui harga rumah yang diprediksi, pembeli dapat merencanakan anggaran mereka lebih efektif dan mengatur pembiayaan dengan lebih baik.
+
+B. Penjual Rumah:
+Penentuan Harga Jual: Penjual dapat menetapkan harga jual yang kompetitif berdasarkan prediksi, memastikan mereka mendapatkan nilai terbaik untuk properti mereka.
+Strategi Penjualan: Memahami tren harga membantu penjual dalam menentukan waktu terbaik untuk menjual rumah mereka.
+
+Proyek ini bertujuan untuk mengembangkan model prediksi harga rumah yang akurat menggunakan pendekatan machine learning. Model ini akan membantu berbagai pihak dalam pengambilan keputusan yang lebih baik dan strategis di pasar penjualan rumah.
+
+Proyek ini menggunakan pendekatan machine learning yakni regresi, khususnya Random Forest dan XGBoost. Kedua algoritma ini dipilih karena kemampuannya dalam menangani data yang kompleks dan memberikan prediksi yang akurat.
 
 ## Business Understanding
 
 ### Problem Statements
 
-Menjelaskan pernyataan masalah latar belakang:
-
 - Harga rumah sangat bervariasi dan sulit diprediksi hanya dengan melihatnya. Banyak faktor yang memengaruhi harga rumah, dan sulit bagi pembeli atau penjual untuk memperkirakan harga yang wajar.
 - Penentuan harga rumah secara manual membutuhkan waktu dan tenaga yang signifikan. Proses tradisional melibatkan survei fisik, analisis pasar komparatif, dan penilaian ahli, yang bisa mahal dan memakan waktu.
 
-### Goals
-
-Menjelaskan tujuan dari pernyataan masalah:
+### Goal
 
 - Mengembangkan model prediktif yang dapat memperkirakan harga rumah secara akurat berdasarkan karakteristiknya. Model ini akan membantu pembeli dan penjual dalam membuat keputusan yang tepat mengenai harga.
 - Otomatiskan proses penilaian rumah dengan memanfaatkan Machine Learning. Ini akan menghemat waktu dan sumber daya, memungkinkan penilaian yang lebih cepat dan lebih efisien.
 
 ## Data Understanding
 
-Dataset Harga Rumah merupakan daftar harga rumah yang terbagi menjadi 2 data, yaitu data harga rumah daerah Jaksel dan data harga rumah daerah Tebet. Link download: https://www.kaggle.com/datasets/wisnuanggara/daftar-harga-rumah/data
+**Jumlah Data**: Dataset yang digunakan hanya dataset DATA RUMAH. Dataset ini terdiri dari 1010 baris dan 8 kolom, masing-masing mewakili rumah yang berbeda dengan berbagai karakteristik yang mempengaruhi harganya.
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
+**Kondisi Data**: Data yang digunakan pada proyek ini sudah bersih hanya perlu drop kolom NO dan NAMA RUMAH saja untuk melakukan modelling
 
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
+**Sumber Data**
+Data ini diperoleh dari kaggle yang dapat diakses melalui link berikut: https://www.kaggle.com/datasets/wisnuanggara/daftar-harga-rumah/data
+
+### Variabel-variabel pada Dataset rumah sebagai berikut:
 
 Dataset ini berisi informasi mengenai karakteristik rumah dan harga jualnya. Berikut adalah variabel-variabel yang ada:
 
@@ -35,7 +47,7 @@ Dataset ini berisi informasi mengenai karakteristik rumah dan harga jualnya. Ber
 - `LT`: Luas tanah rumah dalam meter persegi.
 - `KT`: Jumlah kamar tidur dalam rumah.
 - `KM`: Jumlah kamar mandi dalam rumah.
-- `GRS`: Apakah rumah memiliki garasi (1) atau tidak (0).
+- `GRS`: Apakah rumah memiliki garasi atau tidak.
 - `HARGA`: Harga jual rumah dalam Rupiah.
 
 ## Data Preparation
@@ -46,109 +58,232 @@ Dataset ini berisi informasi mengenai karakteristik rumah dan harga jualnya. Ber
 - df.info(): Untuk melihat informasi umum tentang dataset, seperti jumlah baris, kolom, tipe data, dan nilai yang hilang.
 - df.describe(): Untuk mendapatkan statistik deskriptif dari variabel numerik, seperti rata-rata, standar deviasi, nilai minimum, dan maksimum.
 
+Berikut gambar Statistik Deskriptifnya:
+
+![Screenshot 2024-07-23 225052](https://github.com/user-attachments/assets/bea024da-1f48-491f-a88f-18d3d13d45a5)
+
+Berdasarkan deskripsi statistik yang diberikan untuk dataset properti, berikut adalah penjelasan dari setiap fitur:
+
+- `HARGA`:
+  Rata-rata (mean): Luas bangunan rata-rata adalah sekitar 7,63 miliar.
+
+Standar Deviasi (std): Standar deviasi adalah 7,34 miliar.
+
+Nilai Minimum (min): Luas bangunan terkecil adalah 430 juta.
+
+Kuartil Pertama (25%): 3,26 miliar.
+
+Median (50%): 5 miliar.
+
+Kuartil Ketiga (75%): 9 miliar.
+
+Nilai Maksimum (max): Luas bangunan terbesar adalah 65 miliar.
+
+- `Luas Bangunan (LB)`:
+  Rata-rata (mean): Luas Bangunan rata-rata adalah 276,54 m².
+
+Standar Deviasi (std): Standar deviasi adalah 177,86 m².
+
+Nilai Minimum (min): Luas Bangunan terkecil adalah 40 m².
+
+Kuartil Pertama (25%): 150 m².
+
+Median (50%): 216,5 m².
+
+Kuartil Ketiga (75%): 350 m².
+
+Nilai Maksimum (max): Luas tanah terbesar adalah 1126 m².
+
+- `Luas Tanah (LT)`:
+  Rata-rata (mean): Luas tanah rata-rata adalah 237 m².
+
+Standar Deviasi (std): Standar deviasi adalah 179 m².
+
+Nilai Minimum (min): Luas tanah terkecil adalah 25 m².
+
+Kuartil Pertama (25%): 130 m².
+
+Median (50%): 165 m².
+
+Kuartil Ketiga (75%): 290 m².
+
+Nilai Maksimum (max): Luas tanah terbesar adalah 1400 m².
+
+- `Kamar Tidur (KT)`:
+  Rata-rata (mean): Rata-rata jumlah kamar tidur adalah 4,6.
+
+Standar Deviasi (std): Standar deviasi adalah 1,57.
+
+Nilai Minimum (min): Jumlah kamar tidur terkecil adalah 2.
+
+Kuartil Pertama (25%): 4 kamar tidur.
+
+Median (50%): 4 kamar tidur.
+
+Kuartil Ketiga (75%): 5 kamar tidur.
+
+Nilai Maksimum (max): Jumlah kamar tidur terbanyak adalah 10.
+
+- `Kamar Mandi (KM)`:
+  Rata-rata (mean): Rata-rata jumlah kamar mandi adalah 3,60.
+
+Standar Deviasi (std): Standar deviasi adalah 1,42.
+
+Nilai Minimum (min): Jumlah kamar mandi terkecil adalah 1.
+
+Kuartil Pertama (25%): 3 kamar mandi.
+
+Median (50%): 3 kamar mandi.
+
+Kuartil Ketiga (75%): 4 kamar mandi.
+
+Nilai Maksimum (max): Jumlah kamar mandi terbanyak adalah 10.
+
+`Garasi (GRS)` :
+Rata-rata (mean): Rata-rata jumlah garasi adalah 1,92.
+
+Standar Deviasi (std): Standar deviasi adalah 1,51.
+Nilai Minimum (min): Tidak ada garasi (0).
+
+Kuartil Pertama (25%): 1 garasi.
+
+Median (50%): 2 garasi.
+
+Kuartil Ketiga (75%): 2 garasi.
+
+Nilai Maksimum (max): Jumlah garasi terbanyak adalah 10.
+
 2. Penanganan Nilai yang Hilang
    Dataset diperiksa untuk nilai yang hilang menggunakan df.isna().sum(). Tidak ditemukan nilai yang hilang dalam dataset ini.
 
-3. Penanganan Nilai Nol pada Variabel Tertentu
-   Variabel LB, LT, KT, dan KM diperiksa untuk nilai nol menggunakan (df.LB == 0).sum() dan seterusnya. Meskipun nilai nol mungkin valid dalam beberapa kasus, penting untuk memastikan bahwa mereka tidak mewakili kesalahan entri data. Jika nilai nol dianggap tidak valid, mereka dapat ditangani dengan cara yang sama seperti nilai yang hilang.
-
-4. Pemisahan Data
-   Dataset dibagi menjadi set pelatihan dan pengujian menggunakan train_test_split dengan rasio 80:20. Ini memungkinkan evaluasi kinerja model pada data yang tidak terlihat.
-
-5. Outlier
+3. Outlier
    Pada dataset ini terdapat outlier tetapi tidak dihapus karena itu akan berpengaruh korelasi data bisa dilihat pada gambar dibawah jika outlier dihapus dan tidak dihapus:
 
- ### Gambar data jika outlier tidak dihapus:
-![Data dengan Outlier](gambar/outlier.png)
+### Gambar data jika outlier tidak dihapus:
 
- ### Gambar data jika outlier dihapus:
-![Data dengan Outlier](gambar/nooutlier.png)
+![outlier](https://github.com/user-attachments/assets/666c2621-4357-4026-809d-7606bc415f5b)
+
+### Gambar data jika outlier dihapus:
+
+![nooutlier](https://github.com/user-attachments/assets/c913abe6-dcff-4a7e-90f6-5e3319045565)
+
+4. Penanganan Nilai Nol pada Variabel Tertentu
+   Variabel LB, LT, KT, dan KM diperiksa untuk nilai nol menggunakan (df.LB == 0).sum() dan seterusnya. Meskipun nilai nol mungkin valid dalam beberapa kasus, penting untuk memastikan bahwa mereka tidak mewakili kesalahan entri data. Jika nilai nol dianggap tidak valid, mereka dapat ditangani dengan cara yang sama seperti nilai yang hilang.
+
+5. Exploratory Data Analysis
+- Univariate analysis
+![univariate](https://github.com/user-attachments/assets/c5e64dbc-a394-483b-9c71-107379246630)
+
+Gambar diatas ini menunjukkan histogram dari beberapa variabel properti: luas bangunan (LB), luas tanah (LT), jumlah kamar tidur (KT), jumlah kamar mandi (KM), jumlah garasi (GRS), dan harga (HARGA). Mayoritas data untuk semua variabel terkonsentrasi pada nilai rendah, dengan distribusi yang miring ke kanan dan beberapa outlier di sisi kanan. Luas bangunan dan luas tanah kebanyakan di bawah 200. Rumah umumnya memiliki sekitar 4 kamar tidur, 3 kamar mandi, dan 2 garasi, dengan beberapa rumah memiliki jumlah yang jauh lebih tinggi hingga 10.
+
+- Multivariate Analysis
+![Multivariate](https://github.com/user-attachments/assets/08c0c4ee-71d7-41ea-8c55-ab7a61602621)
+Gambar diatas ini menunjukkan rata-rata harga properti terhadap jumlah kamar tidur (KT), kamar mandi (KM), dan garasi (GRS). Dari grafik pertama, terlihat bahwa harga rata-rata cenderung meningkat dengan bertambahnya jumlah kamar tidur, dengan lonjakan signifikan pada rumah dengan 10 kamar tidur. Grafik kedua menunjukkan bahwa harga rata-rata juga meningkat seiring bertambahnya jumlah kamar mandi, dengan kenaikan yang lebih signifikan pada rumah dengan 7 kamar mandi. Grafik ketiga memperlihatkan bahwa harga rata-rata meningkat secara konsisten dengan bertambahnya jumlah garasi, dengan puncak pada rumah dengan 8 garasi. Secara keseluruhan, ada kecenderungan harga properti meningkat seiring dengan bertambahnya jumlah fasilitas seperti kamar tidur, kamar mandi, dan garasi.
+
+- Numerical Features
+![hubungan antar fitur numerik](https://github.com/user-attachments/assets/17175ef6-e80a-4de7-ae6d-13ed05c3c7d4)
+
+Bisa dilihat pada pola sebaran data grafik pairplot dibawah LT dan LB memiliki korelasi dengan fitur HARGA
+
+6. Pemisahan Data
+   Dataset dibagi menjadi set pelatihan dan pengujian menggunakan train_test_split dengan rasio 80:20. Ini memungkinkan evaluasi kinerja model pada data yang tidak terlihat.
 
 ## Modeling
 
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
 
 ### 1. XGBoost
+
 A. Inisialisasi Model XGBoost
 Model XGBoost: Menggunakan xgboost.XGBRegressor yang diinisialisasi dengan parameter dasar.
-   ```
-   xgb_model = xgb.XGBRegressor(objective='reg:squarederror', random_state=42)
-   ```
+
+```
+xgb_model = xgb.XGBRegressor(objective='reg:squarederror', random_state=42)
+```
+
 random_state=42: Menetapkan seed acak untuk memastikan hasil yang konsisten setiap kali kode dijalankan.
 
 B. Melatih Model
 Latih Model: Model dilatih menggunakan data pelatihan
-   ```
-   xgb_model.fit(X_train, y_train)
-   ```
-   
+
+```
+xgb_model.fit(X_train, y_train)
+```
+
 C. Prediksi
 Prediksi Data Latih dan Uji: Model digunakan untuk memprediksi nilai pada data pelatihan dan data uji.
-   ```
+
+```
 y_train_pred = xgb_model.predict(X_train)
 y_test_pred = xgb_model.predict(X_test)
-   ```
+```
 
 D. Hyperparameter Tuning
+
 - Model dengan Parameter Dasar: Menggunakan parameter dasar seperti n_estimators, max_depth, dan learning_rate.
-   ```
-   xgb_model = xgb.XGBRegressor(
-    objective='reg:squarederror',
-    random_state=42,
-    n_estimators=100,  # Jumlah pohon
-    max_depth=3,       # Kedalaman maksimum pohon
-    learning_rate=0.1  # Laju pembelajaran
-   )
-   ```
+
+  ```
+  xgb_model = xgb.XGBRegressor(
+   objective='reg:squarederror',
+   random_state=42,
+   n_estimators=100,  # Jumlah pohon
+   max_depth=3,       # Kedalaman maksimum pohon
+   learning_rate=0.1  # Laju pembelajaran
+  )
+  ```
 
 - Definisikan Grid Parameter: Menetapkan berbagai kombinasi parameter untuk dicoba.
-   ```
-   param_grid = {
-    'learning_rate': [0.01, 0.1, 0.2],
-    'max_depth': [2, 3, 4],
-    'n_estimators': [50, 100, 150]
-   }
-   ```
+  ```
+  param_grid = {
+   'learning_rate': [0.01, 0.1, 0.2],
+   'max_depth': [2, 3, 4],
+   'n_estimators': [50, 100, 150]
+  }
+  ```
 - Grid Search: Mencari kombinasi parameter terbaik menggunakan GridSearchCV.
-   ```
-   grid_search = GridSearchCV(
-    estimator=xgb_model,
-    param_grid=param_grid,
-    scoring='neg_mean_squared_error',  # Gunakan MSE negatif untuk mencari nilai terkecil
-    cv=5,  # 5-fold cross-validation
-    verbose=1  # Tampilkan progres pencarian
-   )
-   ```
+
+  ```
+  grid_search = GridSearchCV(
+   estimator=xgb_model,
+   param_grid=param_grid,
+   scoring='neg_mean_squared_error',  # Gunakan MSE negatif untuk mencari nilai terkecil
+   cv=5,  # 5-fold cross-validation
+   verbose=1  # Tampilkan progres pencarian
+  )
+  ```
 
 - Latih GridSearchCV: Mencari parameter terbaik pada data pelatihan.
-   ```
-   grid_search.fit(X_train, y_train)
-   ```
+  ```
+  grid_search.fit(X_train, y_train)
+  ```
 
 ### Random Forest
+
 A. Inisialisasi Model:
 `RandomForestRegressor(random_state=123)`: Membuat model Random Forest dengan parameter random_state untuk memastikan hasil yang konsisten setiap kali kode dijalankan.
 
-B. Pelatihan Model: 
+B. Pelatihan Model:
 `rf_model.fit(X_train, y_train)`: Melatih model menggunakan data pelatihan (`X_train` dan `y_train`).
 
 C. Prediksi:
 `rf_model.predict(X_train)`: Membuat prediksi untuk data pelatihan.
 `rf_model.predict(X_test)`: Membuat prediksi untuk data pengujian.
 
-
 ## Kelebihan dan Kekurangan Algoritma:
+
 ### XGBoost
+
 - Kelebihan: Akurasi tinggi, penanganan data yang hilang, regularisasi untuk mencegah overfitting, dan kecepatan yang baik.
 - Kekurangan: Dapat menjadi kompleks untuk hyperparameter tuning, rentan terhadap overfitting jika tidak dikonfigurasi dengan benar.
 
 ### Random Forest
+
 - Kelebihan: Robust terhadap overfitting, dapat menangani data non-linear, dan dapat digunakan untuk feature importance selection.
 - Kekurangan: Kurang akurat dibandingkan XGBoost dalam beberapa kasus, dapat menjadi lambat untuk dataset besar.
 
 ## Evaluation
 
-Metrik yang digunakan pada project ini adalah 
+Metrik yang digunakan pada project ini adalah
 **Mean Absolue Error (MAE), Mean Squared Error (MSE), dan R-squared**
 
 **Mean Absolute Error (MAE)**: Mengukur rata-rata selisih absolut antara nilai prediksi dan nilai sebenarnya. MAE memberikan gambaran umum tentang seberapa jauh prediksi dari nilai sebenarnya. Semakin kecil nilai MAE, semakin baik kinerja model.
@@ -158,6 +293,7 @@ Metrik yang digunakan pada project ini adalah
 **R2 Score**: Mengukur seberapa baik model cocok dengan data. Nilai R2 Score berkisar antara 0 hingga 1, di mana 1 menunjukkan kesesuaian yang sempurna. Semakin tinggi nilai R2 Score, semakin baik model dalam menjelaskan variasi data.
 
 ### Model XGBoost
+
 **Evaluasi pada Data Pelatihan**:
 MAE: 1,469,339,139.4591584
 MSE: 6.934707093962935e+18
@@ -168,7 +304,7 @@ MAE: 1,775,984,023.5
 MSE: 8.609931393182666e+18
 R2 Score: 0.8155652739886136
 
-Hasil: 
+Hasil:
 **MAE** yang tinggi menunjukkan bahwa prediksi rata-rata model memiliki kesalahan absolut sebesar sekitar 1.47 miliar pada data pelatihan dan 1.78 miliar pada data pengujian.
 
 **MSE** yang tinggi menunjukkan adanya beberapa prediksi dengan kesalahan besar, karena MSE memperbesar pengaruh dari kesalahan besar.
@@ -176,6 +312,7 @@ Hasil:
 **R2 Score** pada data pelatihan (0.875) dan pengujian (0.816) menunjukkan bahwa model ini dapat menjelaskan sekitar 87.5% variabilitas data pada pelatihan dan 81.6% pada pengujian. Meskipun ada penurunan performa pada data pengujian, penurunan ini tidak terlalu drastis, menunjukkan model yang cukup robust.
 
 ### Model Random Forest
+
 **Evaluasi pada Data Pelatihan**:
 MAE: 676,085,395.3969383
 MSE: 2.437404949029554e+18
@@ -193,8 +330,15 @@ Hasil:
 
 **R2 Score** yang sangat tinggi pada data pelatihan (0.956) menunjukkan bahwa model ini dapat menjelaskan 95.6% variabilitas data pada pelatihan. Namun, R² Score yang menurun pada data pengujian (0.784) menunjukkan adanya overfitting, di mana model sangat baik dalam mempelajari data pelatihan tetapi kurang generalisasi pada data pengujian.
 
+Model machine learning bekerja dengan baik dan dapat memprediksi harga rumah dengan cepat dan akurat. Dengan mempertimbangkan berbagai faktor yang memengaruhi harga rumah, model ini mampu memberikan estimasi yang wajar dan dapat diandalkan. Hal ini mengatasi tantangan utama dalam memperkirakan harga rumah yang sangat bervariasi dan sulit diprediksi hanya dengan pengamatan langsung.
+
+Goals berhasil dicapai dengan membuat model machine learning yang mampu memprediksi harga rumah. Model ini tidak hanya membantu dalam menentukan harga yang wajar bagi pembeli dan penjual, tetapi juga mengotomatiskan proses penilaian yang sebelumnya memerlukan waktu dan biaya yang signifikan. Dengan demikian, model ini mendukung keputusan yang lebih baik dan cepat di pasar real estate.
+
+Penggunaan model XGBoost dan Random Forest memberikan dampak positif dengan menyediakan alat prediksi harga rumah yang lebih akurat dan stabil. Model ini memanfaatkan berbagai fitur dan data yang relevan untuk menghasilkan prediksi yang lebih dapat diandalkan dibandingkan metode tradisional. Hal ini membantu pembeli dan penjual membuat keputusan yang lebih baik dan strategis di pasar real estate. Dengan alat prediksi yang efisien, para pelaku pasar dapat menghemat waktu dan sumber daya, serta meningkatkan kepuasan dan kepercayaan dalam transaksi properti.
+
 ## Kesimpulan
-**Random Forest** menunjukkan performa yang sangat baik pada data pelatihan dengan MAE dan MSE yang lebih rendah serta R² Score yang lebih tinggi dibandingkan dengan XGBoost. Namun, adanya penurunan performa yang signifikan pada data pengujian menunjukkan adanya overfitting.
+
+**Random Forest** menunjukkan performa yang sangat baik pada data pelatihan dengan MAE dan MSE yang lebih rendah serta R2 Score yang lebih tinggi dibandingkan dengan XGBoost. Namun, adanya penurunan performa yang signifikan pada data pengujian menunjukkan adanya overfitting.
 
 **XGBoost** menunjukkan performa yang lebih stabil pada data pengujian dengan penurunan performa yang tidak terlalu drastis dibandingkan dengan data pelatihan, menunjukkan model yang lebih robust dan mampu melakukan generalisasi yang lebih baik pada data pengujian.
 
