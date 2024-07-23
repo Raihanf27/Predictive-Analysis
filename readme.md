@@ -1,5 +1,8 @@
 # Laporan Proyek Machine Learning - Raihan Fahlevi
 
+## Domain Proyek
+Industri real estate merupakan salah satu sektor ekonomi yang paling signifikan dan dinamis. Harga rumah dipengaruhi oleh berbagai faktor ekonomi, sosial, dan lingkungan. Oleh karena itu, memiliki model prediksi yang akurat untuk harga rumah adalah sangat penting bagi pembeli rumah, penjual, investor, dan perusahaan real estate.
+
 ## Business Understanding
 
 ### Problem Statements
@@ -146,8 +149,10 @@ C. Prediksi:
 Metrik yang digunakan pada project ini adalah 
 **Mean Absolue Error (MAE), Mean Squared Error (MSE), dan R-squared**
 
-- **Mean Absolute Error (MAE)**: Mengukur rata-rata selisih absolut antara nilai prediksi dan nilai sebenarnya. MAE memberikan gambaran umum tentang seberapa jauh prediksi dari nilai sebenarnya. Semakin kecil nilai MAE, semakin baik kinerja model.
+**Mean Absolute Error (MAE)**: Mengukur rata-rata selisih absolut antara nilai prediksi dan nilai sebenarnya. MAE memberikan gambaran umum tentang seberapa jauh prediksi dari nilai sebenarnya. Semakin kecil nilai MAE, semakin baik kinerja model.
+
 **Mean Squared Error (MSE)**: Mengukur rata-rata kuadrat selisih antara nilai prediksi dan nilai sebenarnya. MSE memberikan penalti yang lebih besar untuk kesalahan yang lebih besar. Semakin kecil nilai MSE, semakin baik kinerja model.
+
 **R2 Score**: Mengukur seberapa baik model cocok dengan data. Nilai R2 Score berkisar antara 0 hingga 1, di mana 1 menunjukkan kesesuaian yang sempurna. Semakin tinggi nilai R2 Score, semakin baik model dalam menjelaskan variasi data.
 
 ### Model XGBoost
@@ -163,7 +168,9 @@ R2 Score: 0.8155652739886136
 
 Hasil: 
 **MAE** yang tinggi menunjukkan bahwa prediksi rata-rata model memiliki kesalahan absolut sebesar sekitar 1.47 miliar pada data pelatihan dan 1.78 miliar pada data pengujian.
+
 **MSE** yang tinggi menunjukkan adanya beberapa prediksi dengan kesalahan besar, karena MSE memperbesar pengaruh dari kesalahan besar.
+
 **R2 Score** pada data pelatihan (0.875) dan pengujian (0.816) menunjukkan bahwa model ini dapat menjelaskan sekitar 87.5% variabilitas data pada pelatihan dan 81.6% pada pengujian. Meskipun ada penurunan performa pada data pengujian, penurunan ini tidak terlalu drastis, menunjukkan model yang cukup robust.
 
 ### Model Random Forest
@@ -179,7 +186,9 @@ R2 Score: 0.7841054685201516
 
 Hasil:
 **MAE** yang lebih rendah pada data pelatihan menunjukkan bahwa model ini memiliki kesalahan rata-rata yang lebih kecil, sekitar 676 juta pada data pelatihan dan 1.77 miliar pada data pengujian.
+
 **MSE** yang lebih rendah pada data pelatihan menunjukkan bahwa model ini lebih baik dalam mengurangi pengaruh dari kesalahan besar pada data pelatihan. Namun, pada data pengujian, MSE lebih tinggi daripada XGBoost.
+
 **R2 Score** yang sangat tinggi pada data pelatihan (0.956) menunjukkan bahwa model ini dapat menjelaskan 95.6% variabilitas data pada pelatihan. Namun, R² Score yang menurun pada data pengujian (0.784) menunjukkan adanya overfitting, di mana model sangat baik dalam mempelajari data pelatihan tetapi kurang generalisasi pada data pengujian.
 
 ## Kesimpulan
