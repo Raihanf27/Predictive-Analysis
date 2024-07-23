@@ -65,7 +65,8 @@ Berikut gambar Statistik Deskriptifnya:
 Berdasarkan deskripsi statistik yang diberikan untuk dataset properti, berikut adalah penjelasan dari setiap fitur:
 
 - `HARGA`:
-  Rata-rata (mean): Luas bangunan rata-rata adalah sekitar 7,63 miliar.
+
+Rata-rata (mean): Luas bangunan rata-rata adalah sekitar 7,63 miliar.
 
 Standar Deviasi (std): Standar deviasi adalah 7,34 miliar.
 
@@ -80,7 +81,8 @@ Kuartil Ketiga (75%): 9 miliar.
 Nilai Maksimum (max): Luas bangunan terbesar adalah 65 miliar.
 
 - `Luas Bangunan (LB)`:
-  Rata-rata (mean): Luas Bangunan rata-rata adalah 276,54 m².
+
+Rata-rata (mean): Luas Bangunan rata-rata adalah 276,54 m².
 
 Standar Deviasi (std): Standar deviasi adalah 177,86 m².
 
@@ -95,7 +97,8 @@ Kuartil Ketiga (75%): 350 m².
 Nilai Maksimum (max): Luas tanah terbesar adalah 1126 m².
 
 - `Luas Tanah (LT)`:
-  Rata-rata (mean): Luas tanah rata-rata adalah 237 m².
+
+Rata-rata (mean): Luas tanah rata-rata adalah 237 m².
 
 Standar Deviasi (std): Standar deviasi adalah 179 m².
 
@@ -110,7 +113,8 @@ Kuartil Ketiga (75%): 290 m².
 Nilai Maksimum (max): Luas tanah terbesar adalah 1400 m².
 
 - `Kamar Tidur (KT)`:
-  Rata-rata (mean): Rata-rata jumlah kamar tidur adalah 4,6.
+
+Rata-rata (mean): Rata-rata jumlah kamar tidur adalah 4,6.
 
 Standar Deviasi (std): Standar deviasi adalah 1,57.
 
@@ -125,7 +129,8 @@ Kuartil Ketiga (75%): 5 kamar tidur.
 Nilai Maksimum (max): Jumlah kamar tidur terbanyak adalah 10.
 
 - `Kamar Mandi (KM)`:
-  Rata-rata (mean): Rata-rata jumlah kamar mandi adalah 3,60.
+
+Rata-rata (mean): Rata-rata jumlah kamar mandi adalah 3,60.
 
 Standar Deviasi (std): Standar deviasi adalah 1,42.
 
@@ -140,6 +145,7 @@ Kuartil Ketiga (75%): 4 kamar mandi.
 Nilai Maksimum (max): Jumlah kamar mandi terbanyak adalah 10.
 
 `Garasi (GRS)` :
+
 Rata-rata (mean): Rata-rata jumlah garasi adalah 1,92.
 
 Standar Deviasi (std): Standar deviasi adalah 1,51.
@@ -178,6 +184,7 @@ Gambar diatas ini menunjukkan histogram dari beberapa variabel properti: luas ba
 
 - **Multivariate Analysis**
 ![Multivariate](https://github.com/user-attachments/assets/08c0c4ee-71d7-41ea-8c55-ab7a61602621)
+
 Gambar diatas ini menunjukkan rata-rata harga properti terhadap jumlah kamar tidur (KT), kamar mandi (KM), dan garasi (GRS). Dari grafik pertama, terlihat bahwa harga rata-rata cenderung meningkat dengan bertambahnya jumlah kamar tidur, dengan lonjakan signifikan pada rumah dengan 10 kamar tidur. Grafik kedua menunjukkan bahwa harga rata-rata juga meningkat seiring bertambahnya jumlah kamar mandi, dengan kenaikan yang lebih signifikan pada rumah dengan 7 kamar mandi. Grafik ketiga memperlihatkan bahwa harga rata-rata meningkat secara konsisten dengan bertambahnya jumlah garasi, dengan puncak pada rumah dengan 8 garasi. Secara keseluruhan, ada kecenderungan harga properti meningkat seiring dengan bertambahnya jumlah fasilitas seperti kamar tidur, kamar mandi, dan garasi.
 
 - **Numerical Features**
