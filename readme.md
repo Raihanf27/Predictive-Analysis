@@ -52,7 +52,7 @@ Dataset ini berisi informasi mengenai karakteristik rumah dan harga jualnya. Ber
 
 ## Data Preparation
 
-1. Pemeriksaan Data
+### 1. Pemeriksaan Data
    Langkah pertama adalah memeriksa dataset untuk mendapatkan pemahaman tentang karakteristiknya. Ini termasuk:
 
 - df.info(): Untuk melihat informasi umum tentang dataset, seperti jumlah baris, kolom, tipe data, dan nilai yang hilang.
@@ -153,10 +153,10 @@ Kuartil Ketiga (75%): 2 garasi.
 
 Nilai Maksimum (max): Jumlah garasi terbanyak adalah 10.
 
-2. Penanganan Nilai yang Hilang
+### 2. Penanganan Nilai yang Hilang
    Dataset diperiksa untuk nilai yang hilang menggunakan df.isna().sum(). Tidak ditemukan nilai yang hilang dalam dataset ini.
 
-3. Outlier
+### 3.  Outlier
    Pada dataset ini terdapat outlier tetapi tidak dihapus karena itu akan berpengaruh korelasi data bisa dilihat pada gambar dibawah jika outlier dihapus dan tidak dihapus:
 
 ### Gambar data jika outlier tidak dihapus:
@@ -167,25 +167,25 @@ Nilai Maksimum (max): Jumlah garasi terbanyak adalah 10.
 
 ![nooutlier](https://github.com/user-attachments/assets/c913abe6-dcff-4a7e-90f6-5e3319045565)
 
-4. Penanganan Nilai Nol pada Variabel Tertentu
+### 4. Penanganan Nilai Nol pada Variabel Tertentu
    Variabel LB, LT, KT, dan KM diperiksa untuk nilai nol menggunakan (df.LB == 0).sum() dan seterusnya. Meskipun nilai nol mungkin valid dalam beberapa kasus, penting untuk memastikan bahwa mereka tidak mewakili kesalahan entri data. Jika nilai nol dianggap tidak valid, mereka dapat ditangani dengan cara yang sama seperti nilai yang hilang.
 
-5. Exploratory Data Analysis
-- Univariate analysis
+### 5. Exploratory Data Analysis
+- **Univariate analysis**
 ![univariate](https://github.com/user-attachments/assets/c5e64dbc-a394-483b-9c71-107379246630)
 
 Gambar diatas ini menunjukkan histogram dari beberapa variabel properti: luas bangunan (LB), luas tanah (LT), jumlah kamar tidur (KT), jumlah kamar mandi (KM), jumlah garasi (GRS), dan harga (HARGA). Mayoritas data untuk semua variabel terkonsentrasi pada nilai rendah, dengan distribusi yang miring ke kanan dan beberapa outlier di sisi kanan. Luas bangunan dan luas tanah kebanyakan di bawah 200. Rumah umumnya memiliki sekitar 4 kamar tidur, 3 kamar mandi, dan 2 garasi, dengan beberapa rumah memiliki jumlah yang jauh lebih tinggi hingga 10.
 
-- Multivariate Analysis
+- **Multivariate Analysis**
 ![Multivariate](https://github.com/user-attachments/assets/08c0c4ee-71d7-41ea-8c55-ab7a61602621)
 Gambar diatas ini menunjukkan rata-rata harga properti terhadap jumlah kamar tidur (KT), kamar mandi (KM), dan garasi (GRS). Dari grafik pertama, terlihat bahwa harga rata-rata cenderung meningkat dengan bertambahnya jumlah kamar tidur, dengan lonjakan signifikan pada rumah dengan 10 kamar tidur. Grafik kedua menunjukkan bahwa harga rata-rata juga meningkat seiring bertambahnya jumlah kamar mandi, dengan kenaikan yang lebih signifikan pada rumah dengan 7 kamar mandi. Grafik ketiga memperlihatkan bahwa harga rata-rata meningkat secara konsisten dengan bertambahnya jumlah garasi, dengan puncak pada rumah dengan 8 garasi. Secara keseluruhan, ada kecenderungan harga properti meningkat seiring dengan bertambahnya jumlah fasilitas seperti kamar tidur, kamar mandi, dan garasi.
 
-- Numerical Features
+- **Numerical Features**
 ![hubungan antar fitur numerik](https://github.com/user-attachments/assets/17175ef6-e80a-4de7-ae6d-13ed05c3c7d4)
 
 Bisa dilihat pada pola sebaran data grafik pairplot dibawah LT dan LB memiliki korelasi dengan fitur HARGA
 
-6. Pemisahan Data
+### 6. Pemisahan Data
    Dataset dibagi menjadi set pelatihan dan pengujian menggunakan train_test_split dengan rasio 80:20. Ini memungkinkan evaluasi kinerja model pada data yang tidak terlihat.
 
 ## Modeling
