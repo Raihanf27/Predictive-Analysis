@@ -59,10 +59,10 @@ Dataset ini berisi informasi mengenai karakteristik rumah dan harga jualnya. Ber
    Pada dataset ini terdapat outlier tetapi tidak dihapus karena itu akan berpengaruh korelasi data bisa dilihat pada gambar dibawah jika outlier dihapus dan tidak dihapus:
 
  ### Gambar data jika outlier tidak dihapus:
-![Data dengan Outlier](gambar/outlier.png)
+![outlier](https://github.com/user-attachments/assets/666c2621-4357-4026-809d-7606bc415f5b)
 
  ### Gambar data jika outlier dihapus:
-![Data dengan Outlier](gambar/nooutlier.png)
+![nooutlier](https://github.com/user-attachments/assets/cf108e00-b1e0-4d3b-bee9-97c991e8ed87)
 
 ## Modeling
 
@@ -199,3 +199,6 @@ Hasil:
 **XGBoost** menunjukkan performa yang lebih stabil pada data pengujian dengan penurunan performa yang tidak terlalu drastis dibandingkan dengan data pelatihan, menunjukkan model yang lebih robust dan mampu melakukan generalisasi yang lebih baik pada data pengujian.
 
 Berdasarkan hasil evaluasi ini, XGBoost lebih direkomendasikan untuk digunakan dalam prediksi harga rumah pada dataset ini karena kemampuannya dalam generalisasi yang lebih baik dibandingkan dengan Random Forest. Meskipun Random Forest menunjukkan performa yang sangat baik pada data pelatihan, overfitting yang terjadi membuatnya kurang ideal untuk digunakan pada data baru yang tidak terlihat sebelumnya.
+
+
+
