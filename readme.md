@@ -163,16 +163,17 @@ Variabel LB, LT, KT, dan KM diperiksa untuk nilai nol menggunakan (df.LB == 0).s
 Pada dataset ini terdapat outlier dikolom LT dan LB
 
 Bisa dilihat pada boxplot dibawah menunjukkan adanya outlier. Titik-titik yang berada di luar whiskers di sebelah kanan menunjukkan adanya outlier dalam data LB. Ini adalah titik-titik data yang nilainya jauh lebih tinggi dari kuartil atas ditambah 1.5 kali interquartile range (IQR).
+
 ![Outlier LB](https://github.com/user-attachments/assets/47c08bbc-d39d-42f2-ae56-fcebf1dbfc80)
 
-
 Bisa dilihat pada boxplot dibawah menunjukkan adanya outlier. Pada gambar diatas, titik-titik yang berada di sebelah kanan whiskers menunjukkan adanya outlier dalam data LT. Ini adalah titik-titik data yang nilainya jauh lebih tinggi dari kuartil atas ditambah 1.5 kali interquartile range (IQR).
+
 ![Outlier LT](https://github.com/user-attachments/assets/05481315-4e43-4583-992a-a100c085cbfd)
+
 
 Jadi pada dataset terdapat outlier tetapi tidak dihapus karena itu akan berpengaruh korelasi data bisa dilihat pada gambar dibawah jika outlier dihapus dan tidak dihapus:
 
-### Gambar data jika outlier tidak dihapus:
-
+**Gambar data jika outlier tidak dihapus:**
 ![outlier](https://github.com/user-attachments/assets/666c2621-4357-4026-809d-7606bc415f5b)
 
 ### Gambar data jika outlier dihapus:
