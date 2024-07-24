@@ -203,8 +203,6 @@ Dataset dibagi menjadi set pelatihan dan pengujian menggunakan train_test_split 
 
 ## Modeling
 
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
-
 ### 1. XGBoost
 
 Pada bagian ini, kita akan melatih model prediksi harga rumah menggunakan algoritma XGBoost (Extreme Gradient Boosting). Proses pelatihan ini melibatkan beberapa tahapan utama, yaitu inisialisasi model, pelatihan model pada data, prediksi hasil, dan pencarian hyperparameter untuk mendapatkan model terbaik. Berikut adalah penjelasan lebih rinci mengenai tahapan-tahapan tersebut:
