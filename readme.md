@@ -2,21 +2,7 @@
 
 ## Domain Proyek
 
-Industri real estate merupakan salah satu sektor ekonomi yang paling signifikan dan dinamis. Harga rumah dipengaruhi oleh berbagai faktor ekonomi, sosial, dan lingkungan. Oleh karena itu, memiliki model prediksi yang akurat untuk harga rumah adalah sangat penting bagi pembeli rumah.
-
-Pentingnya Prediksi Harga Rumah:
-
-A. Pembeli Rumah:
-Prediksi harga rumah membantu pembeli untuk menentukan apakah harga yang ditawarkan sesuai dengan nilai pasar yang sebenarnya.
-Perencanaan Keuangan: Dengan mengetahui harga rumah yang diprediksi, pembeli dapat merencanakan anggaran mereka lebih efektif dan mengatur pembiayaan dengan lebih baik.
-
-B. Penjual Rumah:
-Penentuan Harga Jual: Penjual dapat menetapkan harga jual yang kompetitif berdasarkan prediksi, memastikan mereka mendapatkan nilai terbaik untuk properti mereka.
-Strategi Penjualan: Memahami tren harga membantu penjual dalam menentukan waktu terbaik untuk menjual rumah mereka.
-
-Proyek ini bertujuan untuk mengembangkan model prediksi harga rumah yang akurat menggunakan pendekatan machine learning. Model ini akan membantu berbagai pihak dalam pengambilan keputusan yang lebih baik dan strategis di pasar penjualan rumah.
-
-Proyek ini menggunakan pendekatan machine learning yakni regresi, khususnya Random Forest dan XGBoost. Kedua algoritma ini dipilih karena kemampuannya dalam menangani data yang kompleks dan memberikan prediksi yang akurat.
+Industri real estate merupakan salah satu sektor Industri real estate adalah sektor ekonomi yang sangat signifikan dan dinamis, dengan harga rumah dipengaruhi oleh berbagai faktor ekonomi, sosial, dan lingkungan. Memiliki model prediksi harga rumah yang akurat sangat penting bagi pembeli rumah untuk menentukan apakah harga yang ditawarkan sesuai dengan nilai pasar sebenarnya, membantu dalam perencanaan keuangan yang lebih efektif, dan mengatur pembiayaan dengan lebih baik. Bagi penjual rumah, prediksi harga membantu dalam menetapkan harga jual yang kompetitif dan strategi penjualan yang tepat. Proyek ini bertujuan untuk mengembangkan model prediksi harga rumah menggunakan pendekatan machine learning, khususnya regresi dengan Random Forest dan XGBoost, yang mampu menangani data kompleks dan memberikan prediksi yang akurat, sehingga membantu berbagai pihak dalam pengambilan keputusan yang lebih baik dan strategis di pasar penjualan rumah.
 
 ## Business Understanding
 
@@ -50,13 +36,12 @@ Dataset ini berisi informasi mengenai karakteristik rumah dan harga jualnya. Ber
 - `GRS`: Apakah rumah memiliki garasi atau tidak.
 - `HARGA`: Harga jual rumah dalam Rupiah.
 
-## Data Preparation
+### Pemeriksaan data
 
-### 1. Pemeriksaan Data
-   Langkah pertama adalah memeriksa dataset untuk mendapatkan pemahaman tentang karakteristiknya. Ini termasuk:
+Langkah pertama adalah memeriksa dataset untuk mendapatkan pemahaman tentang karakteristiknya. Ini termasuk:
 
-- df.info(): Untuk melihat informasi umum tentang dataset, seperti jumlah baris, kolom, tipe data, dan nilai yang hilang.
-- df.describe(): Untuk mendapatkan statistik deskriptif dari variabel numerik, seperti rata-rata, standar deviasi, nilai minimum, dan maksimum.
+- `df.info()` : Untuk melihat informasi umum tentang dataset, seperti jumlah baris, kolom, tipe data, dan nilai yang hilang.
+- `df.describe()`: Untuk mendapatkan statistik deskriptif dari variabel numerik, seperti rata-rata, standar deviasi, nilai minimum, dan maksimum.
 
 Berikut gambar Statistik Deskriptifnya:
 
@@ -159,11 +144,33 @@ Kuartil Ketiga (75%): 2 garasi.
 
 Nilai Maksimum (max): Jumlah garasi terbanyak adalah 10.
 
-### 2. Penanganan Nilai yang Hilang
-   Dataset diperiksa untuk nilai yang hilang menggunakan df.isna().sum(). Tidak ditemukan nilai yang hilang dalam dataset ini.
+## Data Preparation
 
-### 3.  Outlier
-   Pada dataset ini terdapat outlier tetapi tidak dihapus karena itu akan berpengaruh korelasi data bisa dilihat pada gambar dibawah jika outlier dihapus dan tidak dihapus:
+### 1. Penanganan Nilai yang Hilang
+
+Dataset diperiksa untuk nilai yang hilang menggunakan df.isna().sum(). Tidak ditemukan nilai yang hilang dalam dataset ini.
+
+### 2. Drop Kolom yang tidak digunakan
+
+Pada dataset yang digunakan ini saya hanya memakai 6 kolom saja yakni LB, LT, KT, KM, GRS, HARGA. Saya tidak memakai kolom NO dan NAMA karena kolom itu tidak dibutuhkan untuk project ini.
+
+### 3. Penanganan Nilai Nol pada Variabel Tertentu
+
+Variabel LB, LT, KT, dan KM diperiksa untuk nilai nol menggunakan (df.LB == 0).sum() dan seterusnya. Meskipun nilai nol mungkin valid dalam beberapa kasus, penting untuk memastikan bahwa mereka tidak mewakili kesalahan entri data. Jika nilai nol dianggap tidak valid, mereka dapat ditangani dengan cara yang sama seperti nilai yang hilang.
+
+### 4. Outlier
+
+Pada dataset ini terdapat outlier dikolom LT dan LB
+
+![Outlier LB](https://github.com/user-attachments/assets/47c08bbc-d39d-42f2-ae56-fcebf1dbfc80)
+
+Bisa dilihat pada boxplot diatas menunjukkan adanya outlier. Titik-titik yang berada di luar whiskers di sebelah kanan menunjukkan adanya outlier dalam data LB. Ini adalah titik-titik data yang nilainya jauh lebih tinggi dari kuartil atas ditambah 1.5 kali interquartile range (IQR).
+
+![Outlier LT](https://github.com/user-attachments/assets/05481315-4e43-4583-992a-a100c085cbfd)
+
+Bisa dilihat pada boxplot diatas menunjukkan adanya outlier. Pada gambar diatas, titik-titik yang berada di sebelah kanan whiskers menunjukkan adanya outlier dalam data LT. Ini adalah titik-titik data yang nilainya jauh lebih tinggi dari kuartil atas ditambah 1.5 kali interquartile range (IQR).
+
+Jadi pada dataset terdapat outlier tetapi tidak dihapus karena itu akan berpengaruh korelasi data bisa dilihat pada gambar dibawah jika outlier dihapus dan tidak dihapus:
 
 ### Gambar data jika outlier tidak dihapus:
 
@@ -173,33 +180,34 @@ Nilai Maksimum (max): Jumlah garasi terbanyak adalah 10.
 
 ![nooutlier](https://github.com/user-attachments/assets/c913abe6-dcff-4a7e-90f6-5e3319045565)
 
-### 4. Penanganan Nilai Nol pada Variabel Tertentu
-   Variabel LB, LT, KT, dan KM diperiksa untuk nilai nol menggunakan (df.LB == 0).sum() dan seterusnya. Meskipun nilai nol mungkin valid dalam beberapa kasus, penting untuk memastikan bahwa mereka tidak mewakili kesalahan entri data. Jika nilai nol dianggap tidak valid, mereka dapat ditangani dengan cara yang sama seperti nilai yang hilang.
+### 6. Exploratory Data Analysis
 
-### 5. Exploratory Data Analysis
 - **Univariate analysis**
-![univariate](https://github.com/user-attachments/assets/c5e64dbc-a394-483b-9c71-107379246630)
+  ![univariate](https://github.com/user-attachments/assets/c5e64dbc-a394-483b-9c71-107379246630)
 
 Gambar diatas ini menunjukkan histogram dari beberapa variabel properti: luas bangunan (LB), luas tanah (LT), jumlah kamar tidur (KT), jumlah kamar mandi (KM), jumlah garasi (GRS), dan harga (HARGA). Mayoritas data untuk semua variabel terkonsentrasi pada nilai rendah, dengan distribusi yang miring ke kanan dan beberapa outlier di sisi kanan. Luas bangunan dan luas tanah kebanyakan di bawah 200. Rumah umumnya memiliki sekitar 4 kamar tidur, 3 kamar mandi, dan 2 garasi, dengan beberapa rumah memiliki jumlah yang jauh lebih tinggi hingga 10.
 
 - **Multivariate Analysis**
-![Multivariate](https://github.com/user-attachments/assets/08c0c4ee-71d7-41ea-8c55-ab7a61602621)
+  ![Multivariate](https://github.com/user-attachments/assets/08c0c4ee-71d7-41ea-8c55-ab7a61602621)
 
 Gambar diatas ini menunjukkan rata-rata harga properti terhadap jumlah kamar tidur (KT), kamar mandi (KM), dan garasi (GRS). Dari grafik pertama, terlihat bahwa harga rata-rata cenderung meningkat dengan bertambahnya jumlah kamar tidur, dengan lonjakan signifikan pada rumah dengan 10 kamar tidur. Grafik kedua menunjukkan bahwa harga rata-rata juga meningkat seiring bertambahnya jumlah kamar mandi, dengan kenaikan yang lebih signifikan pada rumah dengan 7 kamar mandi. Grafik ketiga memperlihatkan bahwa harga rata-rata meningkat secara konsisten dengan bertambahnya jumlah garasi, dengan puncak pada rumah dengan 8 garasi. Secara keseluruhan, ada kecenderungan harga properti meningkat seiring dengan bertambahnya jumlah fasilitas seperti kamar tidur, kamar mandi, dan garasi.
 
 - **Numerical Features**
-![hubungan antar fitur numerik](https://github.com/user-attachments/assets/17175ef6-e80a-4de7-ae6d-13ed05c3c7d4)
+  ![hubungan antar fitur numerik](https://github.com/user-attachments/assets/17175ef6-e80a-4de7-ae6d-13ed05c3c7d4)
 
 Bisa dilihat pada pola sebaran data grafik pairplot dibawah LT dan LB memiliki korelasi dengan fitur HARGA
 
-### 6. Pemisahan Data
-   Dataset dibagi menjadi set pelatihan dan pengujian menggunakan train_test_split dengan rasio 80:20. Ini memungkinkan evaluasi kinerja model pada data yang tidak terlihat.
+### 5. Pemisahan Data
+
+Dataset dibagi menjadi set pelatihan dan pengujian menggunakan train_test_split dengan rasio 80:20. Ini memungkinkan evaluasi kinerja model pada data yang tidak terlihat.
 
 ## Modeling
 
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
 
 ### 1. XGBoost
+
+Pada bagian ini, kita akan melatih model prediksi harga rumah menggunakan algoritma XGBoost (Extreme Gradient Boosting). Proses pelatihan ini melibatkan beberapa tahapan utama, yaitu inisialisasi model, pelatihan model pada data, prediksi hasil, dan pencarian hyperparameter untuk mendapatkan model terbaik. Berikut adalah penjelasan lebih rinci mengenai tahapan-tahapan tersebut:
 
 A. Inisialisasi Model XGBoost
 Model XGBoost: Menggunakan xgboost.XGBRegressor yang diinisialisasi dengan parameter dasar.
@@ -264,7 +272,12 @@ D. Hyperparameter Tuning
   grid_search.fit(X_train, y_train)
   ```
 
+Pada data ini XGBoost bekerja seperti dengan cara XGBoost membangun banyak pohon keputusan secara berurutan. Setiap pohon baru memperbaiki kesalahan dari pohon sebelumnya. Model baru dibangun untuk mengurangi gradient loss dari model sebelumnya, sehingga model belajar untuk memprediksi kesalahan.
+XGBoost menggunakan teknik regularisasi (L1 dan L2 regularization) untuk mengurangi overfitting dan membuat model lebih generalis.XGBoost secara otomatis menangani nilai yang hilang, yang membuatnya robust terhadap data yang tidak lengkap.
+
 ### Random Forest
+
+Pada bagian ini, saya akan melatih model prediksi harga rumah menggunakan algoritma Random Forest. Proses pelatihan ini melibatkan beberapa tahapan utama, yaitu inisialisasi model, pelatihan model pada data, prediksi hasil. Berikut adalah penjelasan lebih rinci mengenai tahapan-tahapan tersebut:
 
 A. Inisialisasi Model:
 `RandomForestRegressor(random_state=123)`: Membuat model Random Forest dengan parameter random_state untuk memastikan hasil yang konsisten setiap kali kode dijalankan.
@@ -275,6 +288,8 @@ B. Pelatihan Model:
 C. Prediksi:
 `rf_model.predict(X_train)`: Membuat prediksi untuk data pelatihan.
 `rf_model.predict(X_test)`: Membuat prediksi untuk data pengujian.
+
+Pada data ini Random Forest bekerja dengan cara Random Forest membentuk banyak pohon keputusan secara acak, di mana setiap pohon dilatih pada subset acak dari data pelatihan (bagging). Hal ini membantu dalam mengurangi varians dan mengatasi overfitting. Setiap pohon keputusan memberikan prediksi independen. Untuk regresi, prediksi akhir diperoleh dengan mengambil rata-rata prediksi dari semua pohon. Random Forest juga dapat memberikan estimasi pentingnya setiap fitur dalam dataset, yang berguna untuk memahami fitur mana yang paling berpengaruh dalam membuat prediksi.
 
 ## Kelebihan dan Kekurangan Algoritma:
 
