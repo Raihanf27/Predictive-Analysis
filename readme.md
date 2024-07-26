@@ -237,33 +237,32 @@ y_test_pred = xgb_model.predict(X_test)
 
 D. Hyperparameter Tuning
 
-- Model dengan Parameter Dasar: Menggunakan parameter dasar seperti n_estimators, max_depth, dan learning_rate.
+#### Parameter Dasar Model XGBoost
 
-  ```
-  xgb_model = xgb.XGBRegressor( objective='reg:squarederror', random_state=42 )
-  ```
-  `reg:squarederror` Parameter ini menentukan fungsi objektif yang digunakan oleh model. Dalam kasus ini, `reg:squarederror` digunakan untuk regresi dengan tujuan meminimalkan kesalahan kuadrat antara nilai prediksi dan nilai aktual. Ini cocok untuk masalah prediksi harga rumah karena kita ingin meminimalkan perbedaan antara harga yang diprediksi dan harga sebenarnya.
+- objective='reg': Fungsi objektif ini digunakan untuk regresi dengan tujuan meminimalkan kesalahan kuadrat antara nilai prediksi dan nilai aktual. Dalam konteks prediksi harga rumah, ini berarti model berusaha untuk mengurangi perbedaan antara harga rumah yang diprediksi dan harga sebenarnya.
 
-  `random_state=42`: Parameter ini menetapkan nilai seed untuk generator angka acak. Ini digunakan untuk memastikan bahwa hasil eksperimen dapat direproduksi. Dengan menetapkan nilai random_state, kita memastikan bahwa proses pelatihan model dapat menghasilkan hasil yang konsisten setiap kali dijalankan.
+- random_state=42: Seed untuk generator angka acak digunakan untuk memastikan hasil eksperimen dapat direproduksi. Dengan menetapkan random_state, hasil pelatihan model menjadi konsisten setiap kali dijalankan.
 
-- Menetapkan berbagai kombinasi parameter untuk dicoba.
-  ```
-  param_grid = {
-   'learning_rate': [0.01, 0.1, 0.2],
-   'max_depth': [2, 3, 4],
-   'n_estimators': [50, 100, 150]
-  }
-  ```
-- Mencari kombinasi parameter terbaik menggunakan GridSearchCV.
+#### Grid Search untuk Hyperparameter Tuning
 
-```
-  xgb_model = xgb.XGBRegressor( objective='reg:squarederror', random_state=42 )
-```
+- learning_rate: Parameter ini menentukan kecepatan model dalam belajar. Nilai yang dicoba adalah 0.01, 0.1, dan 0.2. Learning rate yang lebih kecil membuat model belajar lebih lambat tetapi lebih teliti, sementara learning rate yang lebih besar mempercepat proses belajar tetapi berisiko overfitting.
+- max_depth: Parameter ini membatasi kedalaman setiap pohon dalam model. Nilai yang dicoba adalah 2, 3, dan 4. Kedalaman pohon yang lebih besar dapat menangkap lebih banyak informasi tetapi juga berisiko overfitting.
+- n_estimators: Parameter ini menentukan jumlah pohon yang akan dibangun dalam model. Nilai yang dicoba adalah 50, 100, dan 150. Jumlah pohon yang lebih banyak dapat meningkatkan akurasi model tetapi juga meningkatkan risiko overfitting dan waktu komputasi.
 
-- Mencari parameter terbaik pada data pelatihan.
-```
-grid_search.fit(X_train, y_train)
-```
+#### Proses Pencarian Hyperparameter Terbaik dengan GridSearchCV
+
+- GridSearchCV digunakan untuk menguji berbagai kombinasi hyperparameter. Proses ini dilakukan dengan cara membagi data pelatihan menjadi beberapa bagian, melatih model pada kombinasi parameter yang berbeda, dan mengevaluasi performa model pada bagian yang tidak digunakan dalam pelatihan.
+- Evaluasi Performansi: Performansi model dievaluasi berdasarkan metrik kesalahan kuadrat rata-rata (Mean Squared Error, MSE). Kombinasi hyperparameter yang menghasilkan MSE terendah dianggap sebagai yang terbaik.
+- Kombinasi Hyperparameter Terbaik
+Setelah melakukan GridSearchCV, kombinasi hyperparameter yang menghasilkan performa terbaik adalah:
+
+learning_rate=0.1
+
+max_depth=3
+
+n_estimators=100
+
+Kombinasi ini memberikan keseimbangan yang baik antara akurasi prediksi dan kemampuan model untuk generalisasi pada data yang belum pernah dilihat.
 
 Pada data ini XGBoost bekerja seperti dengan cara XGBoost membangun banyak pohon keputusan secara berurutan. Setiap pohon baru memperbaiki kesalahan dari pohon sebelumnya. Model baru dibangun untuk mengurangi gradient loss dari model sebelumnya, sehingga model belajar untuk memprediksi kesalahan.
 XGBoost menggunakan teknik regularisasi (L1 dan L2 regularization) untuk mengurangi overfitting dan membuat model lebih generalis.XGBoost secara otomatis menangani nilai yang hilang, yang membuatnya robust terhadap data yang tidak lengkap.
