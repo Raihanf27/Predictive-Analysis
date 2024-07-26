@@ -256,11 +256,11 @@ D. Hyperparameter Tuning
 - Kombinasi Hyperparameter Terbaik
 Setelah melakukan GridSearchCV, kombinasi hyperparameter yang menghasilkan performa terbaik adalah:
 
-learning_rate=0.1
+      learning_rate=0.1
 
-max_depth=3
+      max_depth=3
 
-n_estimators=100
+      n_estimators=100
 
 Kombinasi ini memberikan keseimbangan yang baik antara akurasi prediksi dan kemampuan model untuk generalisasi pada data yang belum pernah dilihat.
 
