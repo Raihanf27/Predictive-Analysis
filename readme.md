@@ -252,8 +252,9 @@ D. Hyperparameter Tuning
 #### Proses Pencarian Hyperparameter Terbaik dengan GridSearchCV
 
 - GridSearchCV digunakan untuk menguji berbagai kombinasi hyperparameter. Proses ini dilakukan dengan cara membagi data pelatihan menjadi beberapa bagian, melatih model pada kombinasi parameter yang berbeda, dan mengevaluasi performa model pada bagian yang tidak digunakan dalam pelatihan.
-- Evaluasi Performansi: Performansi model dievaluasi berdasarkan metrik kesalahan kuadrat rata-rata (Mean Squared Error, MSE). Kombinasi hyperparameter yang menghasilkan MSE terendah dianggap sebagai yang terbaik.
-- Kombinasi Hyperparameter Terbaik
+- Evaluasi Performa, model dievaluasi berdasarkan metrik kesalahan kuadrat rata-rata (Mean Squared Error, MSE). Kombinasi hyperparameter yang menghasilkan MSE terendah dianggap sebagai yang terbaik.
+
+#### Kombinasi Hyperparameter Terbaik
 Setelah melakukan GridSearchCV, kombinasi hyperparameter yang menghasilkan performa terbaik adalah:
 
       learning_rate=0.1
@@ -272,66 +273,52 @@ XGBoost menggunakan teknik regularisasi (L1 dan L2 regularization) untuk mengura
 Pada bagian ini, saya akan melatih model prediksi harga rumah menggunakan algoritma Random Forest. Proses pelatihan ini melibatkan beberapa tahapan utama, yaitu inisialisasi model, pelatihan model pada data, prediksi hasil. Berikut adalah penjelasan lebih rinci mengenai tahapan-tahapan tersebut:
 
 A. Inisialisasi Model:
-`RandomForestRegressor(random_state=123)`: Membuat model Random Forest dengan parameter random_state untuk memastikan hasil yang konsisten setiap kali kode dijalankan.
+`RandomForestRegressor(random_state=123)`:
+ Membuat model Random Forest dengan parameter random_state untuk memastikan hasil yang konsisten setiap kali kode dijalankan.
 
 B. Pelatihan Model:
-`rf_model.fit(X_train, y_train)`: Melatih model menggunakan data pelatihan (`X_train` dan `y_train`).
+`rf_model.fit(X_train, y_train)`: 
+Melatih model menggunakan data pelatihan (`X_train` dan `y_train`).
 
 C. Prediksi:
-`rf_model.predict(X_train)`: Membuat prediksi untuk data pelatihan.
-`rf_model.predict(X_test)`: Membuat prediksi untuk data pengujian.
+`rf_model.predict(X_train)`: 
+Membuat prediksi untuk data pelatihan.
+`rf_model.predict(X_test)`: 
+Membuat prediksi untuk data pengujian.
 
 Pada data ini Random Forest bekerja dengan cara Random Forest membentuk banyak pohon keputusan secara acak, di mana setiap pohon dilatih pada subset acak dari data pelatihan (bagging). Hal ini membantu dalam mengurangi varians dan mengatasi overfitting. Setiap pohon keputusan memberikan prediksi independen. Untuk regresi, prediksi akhir diperoleh dengan mengambil rata-rata prediksi dari semua pohon. Random Forest juga dapat memberikan estimasi pentingnya setiap fitur dalam dataset, yang berguna untuk memahami fitur mana yang paling berpengaruh dalam membuat prediksi.
 
 D. Hyperparameter Tuning
 
-- Inisialisasi Model Random Forest
+#### Inisialisasi Model Random Forest
 
-```
-rf_model = RandomForestRegressor(random_state=123)
-```
+- `random_state=123` Seed untuk generator angka acak digunakan untuk memastikan hasil eksperimen dapat direproduksi. Dengan menetapkan random_state, hasil pelatihan model menjadi konsisten setiap kali dijalankan.
 
-- Mendefinisikan Grid Parameter untuk Pencarian Hyperparameter
-```
-param_grid = {
-    'n_estimators': [50, 100],  
-    'max_depth': [None, 10],
-    'min_samples_split': [2, 5],
-    'min_samples_leaf': [1, 2]
-}
+#### Grid Parameter untuk Pencarian Hyperparameter
 
-```
-`n_estimators`: Jumlah pohon dalam hutan. Dicoba dengan 50 dan 100.
+- n_estimators: Jumlah pohon dalam hutan. Dicoba dengan 50 dan 100. Jumlah pohon yang lebih banyak biasanya meningkatkan akurasi prediksi, tetapi juga meningkatkan waktu komputasi.
 
-`max_depth`: Kedalaman maksimum pohon. None berarti pohon akan tumbuh sampai semua daun murni atau memiliki kurang dari min_samples_split sampel.
+- max_depth: Kedalaman maksimum pohon. Dicoba dengan None (tanpa batasan) dan 10. Kedalaman yang lebih dalam memungkinkan model menangkap lebih banyak informasi tetapi juga berisiko overfitting.
 
-`min_samples_split`: Jumlah minimum sampel yang diperlukan untuk membagi simpul internal. Dicoba dengan 2 dan 5.
-`min_samples_leaf`: Jumlah minimum sampel yang harus ada di daun. Dicoba dengan 1 dan 2.
+- min_samples_split: Jumlah minimum sampel yang diperlukan untuk membagi simpul internal. Dicoba dengan 2 dan 5. Nilai yang lebih besar membantu mencegah overfitting dengan memastikan setiap pembagian didasarkan pada sejumlah besar data.
 
-- Inisialisasi GridSearchCV
-```
-grid_search = GridSearchCV(
-    estimator=rf_model,
-    param_grid=param_grid,
-    scoring='neg_mean_squared_error',
-    cv=3,
-    verbose=1,
-    n_jobs=-1
-)
+- min_samples_leaf: Jumlah minimum sampel yang harus ada di daun. Dicoba dengan 1 dan 2. Nilai yang lebih besar juga membantu mencegah overfitting dengan memastikan setiap daun mengandung sejumlah besar data.
 
-```
+#### Pencarian Hyperparameter Terbaik dengan GridSearchCV
+- GridSearchCV digunakan untuk menguji berbagai kombinasi hyperparameter di atas. Proses ini dilakukan dengan membagi data pelatihan menjadi beberapa bagian, melatih model pada kombinasi parameter yang berbeda, dan mengevaluasi performa model pada bagian yang tidak digunakan dalam pelatihan.
+- Evaluasi Performa, model dievaluasi berdasarkan metrik kesalahan kuadrat rata-rata negatif (Negative Mean Squared Error, neg_mean_squared_error). Kombinasi hyperparameter yang menghasilkan nilai neg_mean_squared_error tertinggi (atau nilai MSE terendah) dianggap sebagai yang terbaik.
 
-- Lakukan Pencarian Hyperparameter pada Data Pelatihan
 
-```
-grid_search.fit(X_train, y_train)
-```
+#### Kombinasi Hyperparameter Terbaik
+Setelah melakukan GridSearchCV, kombinasi hyperparameter yang menghasilkan performa terbaik adalah:
 
-- Prediksi pada Data Pelatihan dan Pengujian Menggunakan Model Terbaik
-```
-y_train_pred_rf = best_rf_model.predict(X_train)
-y_test_pred_rf = best_rf_model.predict(X_test)
-```
+      n_estimators=100
+
+      max_depth=None
+
+      min_samples_split=2
+      
+      min_samples_leaf=1
 
 ## Kelebihan dan Kekurangan Algoritma:
 
