@@ -242,7 +242,7 @@ D. Hyperparameter Tuning
   ```
   xgb_model = xgb.XGBRegressor( objective='reg:squarederror', random_state=42 )
   ```
-  objective=`reg:squarederror`: Parameter ini menentukan fungsi objektif yang digunakan oleh model. Dalam kasus ini, `reg:squarederror` digunakan untuk regresi dengan tujuan meminimalkan kesalahan kuadrat antara nilai prediksi dan nilai aktual. Ini cocok untuk masalah prediksi harga rumah karena kita ingin meminimalkan perbedaan antara harga yang diprediksi dan harga sebenarnya.
+  `reg:squarederror` Parameter ini menentukan fungsi objektif yang digunakan oleh model. Dalam kasus ini, `reg:squarederror` digunakan untuk regresi dengan tujuan meminimalkan kesalahan kuadrat antara nilai prediksi dan nilai aktual. Ini cocok untuk masalah prediksi harga rumah karena kita ingin meminimalkan perbedaan antara harga yang diprediksi dan harga sebenarnya.
 
   `random_state=42`: Parameter ini menetapkan nilai seed untuk generator angka acak. Ini digunakan untuk memastikan bahwa hasil eksperimen dapat direproduksi. Dengan menetapkan nilai random_state, kita memastikan bahwa proses pelatihan model dapat menghasilkan hasil yang konsisten setiap kali dijalankan.
 
@@ -401,13 +401,18 @@ MSE: 1.0078563535210017e+19
 R2 Score: 0.7841054685201516
 
 **Evaluasi Model Random Forest pada Data Pelatihan:**
+
 MAE: 1102919539.8623614
+
 MSE: 6.043296672889429e+18
+
 R2 Score: 0.8913201418694765
 
 **Evaluasi Model Random Forest pada Data Pengujian:**
 MAE: 1738359197.5723364
+
 MSE: 9.081039075018135e+18
+
 R2 Score: 0.8054736005183717
 
 Hasil:
