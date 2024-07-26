@@ -384,22 +384,6 @@ Hasil:
 
 ### Model Random Forest
 
-**Evaluasi pada Data Pelatihan**:
-
-MAE: 676,085,395.3969383
-
-MSE: 2.437404949029554e+18
-
-R2 Score: 0.9561668343612005
-
-**Evaluasi pada Data Pengujian**:
-
-MAE: 1,766,550,038.426072
-
-MSE: 1.0078563535210017e+19
-
-R2 Score: 0.7841054685201516
-
 **Evaluasi Model Random Forest pada Data Pelatihan:**
 
 MAE: 1102919539.8623614
@@ -409,6 +393,7 @@ MSE: 6.043296672889429e+18
 R2 Score: 0.8913201418694765
 
 **Evaluasi Model Random Forest pada Data Pengujian:**
+
 MAE: 1738359197.5723364
 
 MSE: 9.081039075018135e+18
