@@ -8,17 +8,17 @@ Industri real estate merupakan salah satu sektor Industri real estate adalah sek
 
 ### Problem Statements
 
-- Harga rumah sangat bervariasi dan sulit diprediksi hanya dengan melihatnya. Banyak faktor yang memengaruhi harga rumah, dan sulit bagi pembeli atau penjual untuk memperkirakan harga yang wajar.
-- Penentuan harga rumah secara manual membutuhkan waktu dan tenaga yang signifikan. Proses tradisional melibatkan survei fisik, analisis pasar komparatif, dan penilaian ahli, yang bisa mahal dan memakan waktu.
+Bagaimana kita dapat memperkirakan harga rumah yang wajar mengingat banyaknya faktor yang memengaruhi harga dan variasi yang sulit diprediksi hanya dengan melihatnya?
+Bagaimana cara mengatasi proses penentuan harga rumah secara manual yang membutuhkan waktu dan tenaga signifikan serta mahal dengan metode tradisional seperti survei fisik, analisis pasar komparatif?
 
 ### Goal
 
-- Mengembangkan model prediktif yang dapat memperkirakan harga rumah secara akurat berdasarkan karakteristiknya. Model ini akan membantu pembeli dan penjual dalam membuat keputusan yang tepat mengenai harga.
-- Otomatiskan proses penilaian rumah dengan memanfaatkan Machine Learning. Ini akan menghemat waktu dan sumber daya, memungkinkan penilaian yang lebih cepat dan lebih efisien.
+- Kita dapat memperkirakan harga rumah yang wajar dengan mengembangkan model prediktif berbasis Machine Learning. Model ini akan memperhitungkan berbagai faktor yang memengaruhi harga rumah, seperti lokasi, ukuran, jumlah kamar, kondisi rumah, dan lain-lain. Dengan menggunakan data historis dan algoritma yang tepat, model ini dapat menghasilkan estimasi harga yang akurat, membantu pembeli dan penjual dalam membuat keputusan yang lebih tepat mengenai harga rumah.
+- Kita dapat mengatasi proses penentuan harga rumah secara manual yang memakan waktu dan mahal dengan mengotomatisasi proses penilaian rumah menggunakan Machine Learning. Dengan memanfaatkan teknologi ini, kita dapat menggantikan metode tradisional seperti survei fisik, analisis pasar komparatif dengan sistem otomatis yang dapat memberikan hasil penilaian dengan cepat dan efisien. Otomatisasi ini tidak hanya menghemat waktu dan sumber daya, tetapi juga meningkatkan konsistensi dan akurasi dalam penilaian harga rumah.
 
 ## Data Understanding
 
-**Jumlah Data**: Dataset yang digunakan hanya dataset DATA RUMAH. Dataset ini terdiri dari 1010 baris dan 8 kolom, masing-masing mewakili rumah yang berbeda dengan berbagai karakteristik yang mempengaruhi harganya.
+**Jumlah Data**: Dataset yang digunakan hanya dataset DATA RUMAH. Dataset ini terdiri dari 1010 baris dan 6 kolom, masing-masing mewakili rumah yang berbeda dengan berbagai karakteristik yang mempengaruhi harganya.
 
 **Kondisi Data**: Data yang digunakan pada proyek ini sudah bersih hanya perlu drop kolom NO dan NAMA RUMAH saja untuk melakukan modelling
 
@@ -144,21 +144,7 @@ Kuartil Ketiga (75%): 2 garasi.
 
 Nilai Maksimum (max): Jumlah garasi terbanyak adalah 10.
 
-## Data Preparation
-
-### 1. Penanganan Nilai yang Hilang
-
-Dataset diperiksa untuk nilai yang hilang menggunakan df.isna().sum(). Tidak ditemukan nilai yang hilang dalam dataset ini.
-
-### 2. Drop Kolom yang tidak digunakan
-
-Pada dataset yang digunakan ini saya hanya memakai 6 kolom saja yakni LB, LT, KT, KM, GRS, HARGA. Saya tidak memakai kolom NO dan NAMA karena kolom itu tidak dibutuhkan untuk project ini.
-
-### 3. Penanganan Nilai Nol pada Variabel Tertentu
-
-Variabel LB, LT, KT, dan KM diperiksa untuk nilai nol menggunakan (df.LB == 0).sum() dan seterusnya. Meskipun nilai nol mungkin valid dalam beberapa kasus, penting untuk memastikan bahwa mereka tidak mewakili kesalahan entri data. Jika nilai nol dianggap tidak valid, mereka dapat ditangani dengan cara yang sama seperti nilai yang hilang.
-
-### 4. Outlier
+### Pengecekan Outlier
 
 Pada dataset ini terdapat outlier dikolom LT dan LB
 
@@ -180,7 +166,7 @@ Jadi pada dataset terdapat outlier tetapi tidak dihapus karena itu akan berpenga
 
 ![nooutlier](https://github.com/user-attachments/assets/c913abe6-dcff-4a7e-90f6-5e3319045565)
 
-### 6. Exploratory Data Analysis
+### Exploratory Data Analysis
 
 - **Univariate analysis**
   ![univariate](https://github.com/user-attachments/assets/c5e64dbc-a394-483b-9c71-107379246630)
@@ -196,6 +182,24 @@ Gambar diatas ini menunjukkan rata-rata harga properti terhadap jumlah kamar tid
   ![hubungan antar fitur numerik](https://github.com/user-attachments/assets/17175ef6-e80a-4de7-ae6d-13ed05c3c7d4)
 
 Bisa dilihat pada pola sebaran data grafik pairplot dibawah LT dan LB memiliki korelasi dengan fitur HARGA
+
+## Data Preparation
+
+### 1. Memindah kolom harga ke paling kanan
+Memindahkan kolom harga ke paling kanan agar mudah
+untuk membaca dataset.
+
+### 2. Penanganan Nilai yang Hilang
+
+Dataset diperiksa untuk nilai yang hilang menggunakan df.isna().sum(). Tidak ditemukan nilai yang hilang dalam dataset ini.
+
+### 3. Drop Kolom yang tidak digunakan
+
+Pada dataset yang digunakan ini saya hanya memakai 6 kolom saja yakni LB, LT, KT, KM, GRS, HARGA. Saya tidak memakai kolom NO dan NAMA karena kolom itu tidak dibutuhkan untuk project ini.
+
+### 4. Penanganan Nilai Nol pada Variabel Tertentu
+
+Variabel LB, LT, KT, dan KM diperiksa untuk nilai nol menggunakan (df.LB == 0).sum() dan seterusnya. Meskipun nilai nol mungkin valid dalam beberapa kasus, penting untuk memastikan bahwa mereka tidak mewakili kesalahan entri data. Jika nilai nol dianggap tidak valid, mereka dapat ditangani dengan cara yang sama seperti nilai yang hilang.
 
 ### 5. Pemisahan Data
 
@@ -244,6 +248,15 @@ D. Hyperparameter Tuning
    learning_rate=0.1  # Laju pembelajaran
   )
   ```
+  objective=`reg:squarederror`: Parameter ini menentukan fungsi objektif yang digunakan oleh model. Dalam kasus ini, `reg:squarederror` digunakan untuk regresi dengan tujuan meminimalkan kesalahan kuadrat antara nilai prediksi dan nilai aktual. Ini cocok untuk masalah prediksi harga rumah karena kita ingin meminimalkan perbedaan antara harga yang diprediksi dan harga sebenarnya.
+
+  `random_state=42`: Parameter ini menetapkan nilai seed untuk generator angka acak. Ini digunakan untuk memastikan bahwa hasil eksperimen dapat direproduksi. Dengan menetapkan nilai random_state, kita memastikan bahwa proses pelatihan model dapat menghasilkan hasil yang konsisten setiap kali dijalankan.
+
+  `n_estimators=100`: Parameter ini menentukan jumlah pohon keputusan (decision trees) yang akan dibangun oleh model. Setiap pohon berkontribusi terhadap hasil akhir prediksi. Jumlah pohon yang lebih besar umumnya dapat meningkatkan kinerja model, tetapi juga dapat meningkatkan waktu komputasi. Dalam kasus ini, 100 pohon dipilih sebagai nilai awal.
+
+  `max_depth=3`: Parameter ini menetapkan kedalaman maksimum setiap pohon keputusan. Kedalaman pohon mempengaruhi kemampuan model untuk menangkap pola dalam data. Kedalaman yang lebih besar dapat menangkap lebih banyak detail, tetapi juga meningkatkan risiko overfitting. Dalam kasus ini, kedalaman maksimum 3 dipilih untuk menjaga keseimbangan antara kompleksitas model dan risiko overfitting.
+
+  `learning_rate=0.1`: Parameter ini menentukan laju pembelajaran atau kecepatan model dalam menyesuaikan bobot dengan setiap pohon baru yang ditambahkan. Laju pembelajaran yang lebih kecil membuat model belajar lebih lambat, tetapi dapat menghasilkan model yang lebih akurat dengan mengurangi risiko overfitting. Dalam kasus ini, laju pembelajaran 0.1 dipilih sebagai nilai awal.
 
 - Definisikan Grid Parameter: Menetapkan berbagai kombinasi parameter untuk dicoba.
   ```
