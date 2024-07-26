@@ -156,7 +156,6 @@ Bisa dilihat pada boxplot dibawah menunjukkan adanya outlier. Pada gambar diatas
 
 ![Outlier LT](https://github.com/user-attachments/assets/05481315-4e43-4583-992a-a100c085cbfd)
 
-
 Jadi pada dataset terdapat outlier tetapi tidak dihapus karena itu akan berpengaruh korelasi data bisa dilihat pada gambar dibawah jika outlier dihapus dan tidak dihapus:
 
 **Gambar data jika outlier tidak dihapus:**
@@ -186,6 +185,7 @@ Bisa dilihat pada pola sebaran data grafik pairplot dibawah LT dan LB memiliki k
 ## Data Preparation
 
 ### 1. Memindah kolom harga ke paling kanan
+
 Memindahkan kolom harga ke paling kanan agar mudah
 untuk membaca dataset.
 
@@ -255,6 +255,7 @@ D. Hyperparameter Tuning
 - Evaluasi Performa, model dievaluasi berdasarkan metrik kesalahan kuadrat rata-rata (Mean Squared Error, MSE). Kombinasi hyperparameter yang menghasilkan MSE terendah dianggap sebagai yang terbaik.
 
 #### Kombinasi Hyperparameter Terbaik
+
 Setelah melakukan GridSearchCV, kombinasi hyperparameter yang menghasilkan performa terbaik adalah:
 
       learning_rate=0.1
@@ -274,16 +275,16 @@ Pada bagian ini, saya akan melatih model prediksi harga rumah menggunakan algori
 
 A. Inisialisasi Model:
 `RandomForestRegressor(random_state=123)`:
- Membuat model Random Forest dengan parameter random_state untuk memastikan hasil yang konsisten setiap kali kode dijalankan.
+Membuat model Random Forest dengan parameter random_state untuk memastikan hasil yang konsisten setiap kali kode dijalankan.
 
 B. Pelatihan Model:
-`rf_model.fit(X_train, y_train)`: 
+`rf_model.fit(X_train, y_train)`:
 Melatih model menggunakan data pelatihan (`X_train` dan `y_train`).
 
 C. Prediksi:
-`rf_model.predict(X_train)`: 
+`rf_model.predict(X_train)`:
 Membuat prediksi untuk data pelatihan.
-`rf_model.predict(X_test)`: 
+`rf_model.predict(X_test)`:
 Membuat prediksi untuk data pengujian.
 
 Pada data ini Random Forest bekerja dengan cara Random Forest membentuk banyak pohon keputusan secara acak, di mana setiap pohon dilatih pada subset acak dari data pelatihan (bagging). Hal ini membantu dalam mengurangi varians dan mengatasi overfitting. Setiap pohon keputusan memberikan prediksi independen. Untuk regresi, prediksi akhir diperoleh dengan mengambil rata-rata prediksi dari semua pohon. Random Forest juga dapat memberikan estimasi pentingnya setiap fitur dalam dataset, yang berguna untuk memahami fitur mana yang paling berpengaruh dalam membuat prediksi.
@@ -305,11 +306,12 @@ D. Hyperparameter Tuning
 - min_samples_leaf: Jumlah minimum sampel yang harus ada di daun. Dicoba dengan 1 dan 2. Nilai yang lebih besar juga membantu mencegah overfitting dengan memastikan setiap daun mengandung sejumlah besar data.
 
 #### Pencarian Hyperparameter Terbaik dengan GridSearchCV
+
 - GridSearchCV digunakan untuk menguji berbagai kombinasi hyperparameter di atas. Proses ini dilakukan dengan membagi data pelatihan menjadi beberapa bagian, melatih model pada kombinasi parameter yang berbeda, dan mengevaluasi performa model pada bagian yang tidak digunakan dalam pelatihan.
 - Evaluasi Performa, model dievaluasi berdasarkan metrik kesalahan kuadrat rata-rata negatif (Negative Mean Squared Error, neg_mean_squared_error). Kombinasi hyperparameter yang menghasilkan nilai neg_mean_squared_error tertinggi (atau nilai MSE terendah) dianggap sebagai yang terbaik.
 
-
 #### Kombinasi Hyperparameter Terbaik
+
 Setelah melakukan GridSearchCV, kombinasi hyperparameter yang menghasilkan performa terbaik adalah:
 
       n_estimators=100
@@ -323,6 +325,7 @@ Setelah melakukan GridSearchCV, kombinasi hyperparameter yang menghasilkan perfo
 ## Kelebihan dan Kekurangan Algoritma:
 
 ### XGBoost
+
 - Kelebihan: Akurasi tinggi, penanganan data yang hilang, regularisasi untuk mencegah overfitting, dan kecepatan yang baik.
 - Kekurangan: Dapat menjadi kompleks untuk hyperparameter tuning, rentan terhadap overfitting jika tidak dikonfigurasi dengan benar.
 
