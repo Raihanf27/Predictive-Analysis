@@ -240,10 +240,7 @@ D. Hyperparameter Tuning
 - Model dengan Parameter Dasar: Menggunakan parameter dasar seperti n_estimators, max_depth, dan learning_rate.
 
   ```
-xgb_model = xgb.XGBRegressor(
-    objective='reg:squarederror',
-    random_state=42
-)
+  xgb_model = xgb.XGBRegressor( objective='reg:squarederror', random_state=42 )
   ```
   objective=`reg:squarederror`: Parameter ini menentukan fungsi objektif yang digunakan oleh model. Dalam kasus ini, `reg:squarederror` digunakan untuk regresi dengan tujuan meminimalkan kesalahan kuadrat antara nilai prediksi dan nilai aktual. Ini cocok untuk masalah prediksi harga rumah karena kita ingin meminimalkan perbedaan antara harga yang diprediksi dan harga sebenarnya.
 
@@ -259,20 +256,14 @@ xgb_model = xgb.XGBRegressor(
   ```
 - Mencari kombinasi parameter terbaik menggunakan GridSearchCV.
 
-  ```
-  grid_search = GridSearchCV(
-   estimator=xgb_model,
-   param_grid=param_grid,
-   scoring='neg_mean_squared_error',  # Gunakan MSE negatif untuk mencari nilai terkecil
-   cv=5,  # 5-fold cross-validation
-   verbose=1  # Tampilkan progres pencarian
-  )
-  ```
+```
+  xgb_model = xgb.XGBRegressor( objective='reg:squarederror', random_state=42 )
+```
 
 - Mencari parameter terbaik pada data pelatihan.
-  ```
-  grid_search.fit(X_train, y_train)
-  ```
+```
+grid_search.fit(X_train, y_train)
+```
 
 Pada data ini XGBoost bekerja seperti dengan cara XGBoost membangun banyak pohon keputusan secara berurutan. Setiap pohon baru memperbaiki kesalahan dari pohon sebelumnya. Model baru dibangun untuk mengurangi gradient loss dari model sebelumnya, sehingga model belajar untuk memprediksi kesalahan.
 XGBoost menggunakan teknik regularisasi (L1 dan L2 regularization) untuk mengurangi overfitting dan membuat model lebih generalis.XGBoost secara otomatis menangani nilai yang hilang, yang membuatnya robust terhadap data yang tidak lengkap.
@@ -318,7 +309,6 @@ param_grid = {
 `min_samples_split`: Jumlah minimum sampel yang diperlukan untuk membagi simpul internal. Dicoba dengan 2 dan 5.
 `min_samples_leaf`: Jumlah minimum sampel yang harus ada di daun. Dicoba dengan 1 dan 2.
 
-
 - Inisialisasi GridSearchCV
 ```
 grid_search = GridSearchCV(
@@ -347,7 +337,6 @@ y_test_pred_rf = best_rf_model.predict(X_test)
 ## Kelebihan dan Kekurangan Algoritma:
 
 ### XGBoost
-
 - Kelebihan: Akurasi tinggi, penanganan data yang hilang, regularisasi untuk mencegah overfitting, dan kecepatan yang baik.
 - Kekurangan: Dapat menjadi kompleks untuk hyperparameter tuning, rentan terhadap overfitting jika tidak dikonfigurasi dengan benar.
 
