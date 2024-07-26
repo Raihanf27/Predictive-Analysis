@@ -292,7 +292,7 @@ D. Hyperparameter Tuning
 
 #### Inisialisasi Model Random Forest
 
-- `random_state=123` Seed untuk generator angka acak digunakan untuk memastikan hasil eksperimen dapat direproduksi. Dengan menetapkan random_state, hasil pelatihan model menjadi konsisten setiap kali dijalankan.
+- random_state=123 Seed untuk generator angka acak digunakan untuk memastikan hasil eksperimen dapat direproduksi. Dengan menetapkan random_state, hasil pelatihan model menjadi konsisten setiap kali dijalankan.
 
 #### Grid Parameter untuk Pencarian Hyperparameter
 
@@ -317,7 +317,7 @@ Setelah melakukan GridSearchCV, kombinasi hyperparameter yang menghasilkan perfo
       max_depth=None
 
       min_samples_split=2
-      
+
       min_samples_leaf=1
 
 ## Kelebihan dan Kekurangan Algoritma:
