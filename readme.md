@@ -240,25 +240,16 @@ D. Hyperparameter Tuning
 - Model dengan Parameter Dasar: Menggunakan parameter dasar seperti n_estimators, max_depth, dan learning_rate.
 
   ```
-  xgb_model = xgb.XGBRegressor(
-   objective='reg:squarederror',
-   random_state=42,
-   n_estimators=100,  # Jumlah pohon
-   max_depth=3,       # Kedalaman maksimum pohon
-   learning_rate=0.1  # Laju pembelajaran
-  )
+xgb_model = xgb.XGBRegressor(
+    objective='reg:squarederror',
+    random_state=42
+)
   ```
   objective=`reg:squarederror`: Parameter ini menentukan fungsi objektif yang digunakan oleh model. Dalam kasus ini, `reg:squarederror` digunakan untuk regresi dengan tujuan meminimalkan kesalahan kuadrat antara nilai prediksi dan nilai aktual. Ini cocok untuk masalah prediksi harga rumah karena kita ingin meminimalkan perbedaan antara harga yang diprediksi dan harga sebenarnya.
 
   `random_state=42`: Parameter ini menetapkan nilai seed untuk generator angka acak. Ini digunakan untuk memastikan bahwa hasil eksperimen dapat direproduksi. Dengan menetapkan nilai random_state, kita memastikan bahwa proses pelatihan model dapat menghasilkan hasil yang konsisten setiap kali dijalankan.
 
-  `n_estimators=100`: Parameter ini menentukan jumlah pohon keputusan (decision trees) yang akan dibangun oleh model. Setiap pohon berkontribusi terhadap hasil akhir prediksi. Jumlah pohon yang lebih besar umumnya dapat meningkatkan kinerja model, tetapi juga dapat meningkatkan waktu komputasi. Dalam kasus ini, 100 pohon dipilih sebagai nilai awal.
-
-  `max_depth=3`: Parameter ini menetapkan kedalaman maksimum setiap pohon keputusan. Kedalaman pohon mempengaruhi kemampuan model untuk menangkap pola dalam data. Kedalaman yang lebih besar dapat menangkap lebih banyak detail, tetapi juga meningkatkan risiko overfitting. Dalam kasus ini, kedalaman maksimum 3 dipilih untuk menjaga keseimbangan antara kompleksitas model dan risiko overfitting.
-
-  `learning_rate=0.1`: Parameter ini menentukan laju pembelajaran atau kecepatan model dalam menyesuaikan bobot dengan setiap pohon baru yang ditambahkan. Laju pembelajaran yang lebih kecil membuat model belajar lebih lambat, tetapi dapat menghasilkan model yang lebih akurat dengan mengurangi risiko overfitting. Dalam kasus ini, laju pembelajaran 0.1 dipilih sebagai nilai awal.
-
-- Definisikan Grid Parameter: Menetapkan berbagai kombinasi parameter untuk dicoba.
+- Menetapkan berbagai kombinasi parameter untuk dicoba.
   ```
   param_grid = {
    'learning_rate': [0.01, 0.1, 0.2],
@@ -266,7 +257,7 @@ D. Hyperparameter Tuning
    'n_estimators': [50, 100, 150]
   }
   ```
-- Grid Search: Mencari kombinasi parameter terbaik menggunakan GridSearchCV.
+- Mencari kombinasi parameter terbaik menggunakan GridSearchCV.
 
   ```
   grid_search = GridSearchCV(
@@ -278,7 +269,7 @@ D. Hyperparameter Tuning
   )
   ```
 
-- Latih GridSearchCV: Mencari parameter terbaik pada data pelatihan.
+- Mencari parameter terbaik pada data pelatihan.
   ```
   grid_search.fit(X_train, y_train)
   ```
@@ -301,6 +292,57 @@ C. Prediksi:
 `rf_model.predict(X_test)`: Membuat prediksi untuk data pengujian.
 
 Pada data ini Random Forest bekerja dengan cara Random Forest membentuk banyak pohon keputusan secara acak, di mana setiap pohon dilatih pada subset acak dari data pelatihan (bagging). Hal ini membantu dalam mengurangi varians dan mengatasi overfitting. Setiap pohon keputusan memberikan prediksi independen. Untuk regresi, prediksi akhir diperoleh dengan mengambil rata-rata prediksi dari semua pohon. Random Forest juga dapat memberikan estimasi pentingnya setiap fitur dalam dataset, yang berguna untuk memahami fitur mana yang paling berpengaruh dalam membuat prediksi.
+
+D. Hyperparameter Tuning
+
+- Inisialisasi Model Random Forest
+
+```
+rf_model = RandomForestRegressor(random_state=123)
+```
+
+- Mendefinisikan Grid Parameter untuk Pencarian Hyperparameter
+```
+param_grid = {
+    'n_estimators': [50, 100],  
+    'max_depth': [None, 10],
+    'min_samples_split': [2, 5],
+    'min_samples_leaf': [1, 2]
+}
+
+```
+`n_estimators`: Jumlah pohon dalam hutan. Dicoba dengan 50 dan 100.
+
+`max_depth`: Kedalaman maksimum pohon. None berarti pohon akan tumbuh sampai semua daun murni atau memiliki kurang dari min_samples_split sampel.
+
+`min_samples_split`: Jumlah minimum sampel yang diperlukan untuk membagi simpul internal. Dicoba dengan 2 dan 5.
+`min_samples_leaf`: Jumlah minimum sampel yang harus ada di daun. Dicoba dengan 1 dan 2.
+
+
+- Inisialisasi GridSearchCV
+```
+grid_search = GridSearchCV(
+    estimator=rf_model,
+    param_grid=param_grid,
+    scoring='neg_mean_squared_error',
+    cv=3,
+    verbose=1,
+    n_jobs=-1
+)
+
+```
+
+- Lakukan Pencarian Hyperparameter pada Data Pelatihan
+
+```
+grid_search.fit(X_train, y_train)
+```
+
+- Prediksi pada Data Pelatihan dan Pengujian Menggunakan Model Terbaik
+```
+y_train_pred_rf = best_rf_model.predict(X_train)
+y_test_pred_rf = best_rf_model.predict(X_test)
+```
 
 ## Kelebihan dan Kekurangan Algoritma:
 
@@ -369,13 +411,23 @@ MSE: 1.0078563535210017e+19
 
 R2 Score: 0.7841054685201516
 
+**Evaluasi Model Random Forest pada Data Pelatihan:**
+MAE: 1102919539.8623614
+MSE: 6.043296672889429e+18
+R2 Score: 0.8913201418694765
+
+**Evaluasi Model Random Forest pada Data Pengujian:**
+MAE: 1738359197.5723364
+MSE: 9.081039075018135e+18
+R2 Score: 0.8054736005183717
+
 Hasil:
 
-**MAE** yang lebih rendah pada data pelatihan menunjukkan bahwa model ini memiliki kesalahan rata-rata yang lebih kecil, sekitar 676 juta pada data pelatihan dan 1.77 miliar pada data pengujian.
+**MAE** yang lebih rendah pada data pelatihan (sekitar 1.10 miliar) menunjukkan bahwa model ini memiliki kesalahan rata-rata yang lebih kecil pada data pelatihan dibandingkan dengan data pengujian (sekitar 1.74 miliar). Hal ini mengindikasikan bahwa model lebih akurat dalam memprediksi data yang sudah dilatih dibandingkan dengan data baru yang belum pernah dilihat sebelumnya.
 
-**MSE** yang lebih rendah pada data pelatihan menunjukkan bahwa model ini lebih baik dalam mengurangi pengaruh dari kesalahan besar pada data pelatihan. Namun, pada data pengujian, MSE lebih tinggi daripada XGBoost.
+**MSE** yang lebih rendah pada data pelatihan (6.04e+18) menunjukkan bahwa model ini lebih baik dalam mengurangi pengaruh dari kesalahan besar pada data pelatihan. Namun, pada data pengujian, MSE lebih tinggi (9.08e+18), yang menunjukkan bahwa model mengalami kesulitan dalam menangani beberapa kesalahan besar pada data pengujian dibandingkan pada data pelatihan.
 
-**R2 Score** yang sangat tinggi pada data pelatihan (0.956) menunjukkan bahwa model ini dapat menjelaskan 95.6% variabilitas data pada pelatihan. Namun, R² Score yang menurun pada data pengujian (0.784) menunjukkan adanya overfitting, di mana model sangat baik dalam mempelajari data pelatihan tetapi kurang generalisasi pada data pengujian.
+**R2 Score** yang tinggi pada data pelatihan (0.891) menunjukkan bahwa model ini dapat menjelaskan 89.1% variabilitas data pada pelatihan, yang menunjukkan performa yang sangat baik pada data pelatihan. Namun, R² Score yang menurun pada data pengujian (0.805) menunjukkan bahwa model kehilangan beberapa kemampuan untuk menjelaskan variabilitas pada data pengujian. Penurunan ini mengindikasikan adanya overfitting, di mana model sangat baik dalam mempelajari data pelatihan tetapi kurang mampu menggeneralisasi pola pada data yang belum pernah dilihat sebelumnya.
 
 Model machine learning bekerja dengan baik dan dapat memprediksi harga rumah dengan cepat dan akurat. Dengan mempertimbangkan berbagai faktor yang memengaruhi harga rumah, model ini mampu memberikan estimasi yang wajar dan dapat diandalkan. Hal ini mengatasi tantangan utama dalam memperkirakan harga rumah yang sangat bervariasi dan sulit diprediksi hanya dengan pengamatan langsung.
 
@@ -385,8 +437,7 @@ Penggunaan model XGBoost dan Random Forest memberikan dampak positif dengan meny
 
 ## Kesimpulan
 
-**Random Forest** menunjukkan performa yang sangat baik pada data pelatihan dengan MAE dan MSE yang lebih rendah serta R2 Score yang lebih tinggi dibandingkan dengan XGBoost. Namun, adanya penurunan performa yang signifikan pada data pengujian menunjukkan adanya overfitting.
-
-**XGBoost** menunjukkan performa yang lebih stabil pada data pengujian dengan penurunan performa yang tidak terlalu drastis dibandingkan dengan data pelatihan, menunjukkan model yang lebih robust dan mampu melakukan generalisasi yang lebih baik pada data pengujian.
+**Random Forest** menunjukkan performa yang lebih baik pada data pelatihan dengan MAE dan MSE yang lebih rendah serta R² Score yang lebih tinggi. Namun, hal ini juga dapat menunjukkan bahwa Random Forest mungkin mengalami overfitting karena performanya menurun lebih drastis pada data pengujian dibandingkan XGBoost.
+**XGBoost** menunjukkan performa yang lebih konsisten antara data pelatihan dan pengujian dengan perbedaan yang lebih kecil dalam R² Score, MAE, dan MSE, yang menunjukkan kemampuan generalisasi yang lebih baik pada data baru.
 
 Berdasarkan hasil evaluasi ini, XGBoost lebih direkomendasikan untuk digunakan dalam prediksi harga rumah pada dataset ini karena kemampuannya dalam generalisasi yang lebih baik dibandingkan dengan Random Forest. Meskipun Random Forest menunjukkan performa yang sangat baik pada data pelatihan, overfitting yang terjadi membuatnya kurang ideal untuk digunakan pada data baru yang tidak terlihat sebelumnya.
